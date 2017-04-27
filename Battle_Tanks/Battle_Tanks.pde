@@ -39,20 +39,29 @@
 // 2: Multiplayer Lobby
 // 3: Game-Over Screen
 
-int gameState = 0;
-Manager manager;
+int screen = 1;
+gameState gs;
+//mainMenu menu;
+//lobby l;
+//gameOver rip;
+
+
 void setup() {
-  size(500,500);
+  size(600,600);
+  gs = new gameState();
+  //menu = new mainMenu();
+  //l = new lobby();
+  //rip = new gameOver();
 }
 
 void draw() {
-  if (gameState == 0) {
-    manager.mainMenu();
-  } else if (gameState == 1) {
-    manager.gameScreen();
-  } else if (gameState == 2) {
-    manager.lobby();
-  } else if (gameState == 3) {
-    manager.gameOver();
+  if (screen == 0) {
+    //menu.draw();
+  } else if (screen == 1) {
+    gs.draw();
+  } else if (screen == 2) {
+    //l.draw();
+  } else if (screen == 3) {
+    //rip.draw();
   }
 }
