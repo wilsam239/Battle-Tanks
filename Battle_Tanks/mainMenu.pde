@@ -33,12 +33,13 @@ class mainMenu {
   
   void draw() {
     background(bg);
+    /*
     for (int x = 0; x < width; x+=30) {
       for (int y = 0; y < height; y+=30) {
         line(0,y, width,y);
         line(x,0, x,height);
       }
-    }
+    }*/
     
     update(mouseX, mouseY);
     option1();
