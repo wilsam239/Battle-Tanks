@@ -39,9 +39,9 @@
 // 2: Multiplayer Lobby
 // 3: Game-Over Screen
 
-int screen = 1;
+int screen = 0;
 gameState gs;
-//mainMenu menu;
+mainMenu menu;
 //lobby l;
 //gameOver rip;
 
@@ -49,14 +49,14 @@ gameState gs;
 void setup() {
   size(600,600);
   gs = new gameState();
-  //menu = new mainMenu();
+  menu = new mainMenu();
   //l = new lobby();
   //rip = new gameOver();
 }
 
 void draw() {
   if (screen == 0) {
-    //menu.draw();
+    menu.draw();
   } else if (screen == 1) {
     gs.draw();
   } else if (screen == 2) {
