@@ -7,6 +7,7 @@ interface tankAction {
 class tankIdle implements tankAction {
   
   void draw(tank t) {
+    fill(255);
     rect(t.x, t.y, t.tankWidth, t.tankHeight);
   }
    
@@ -30,7 +31,7 @@ class tankMoving implements tankAction {
   void draw(tank t) {
     //int offsetX, offsetY;
     switch(direction) {
-      case 'N':
+      case 'N':          
         t.y -= 1;
         break;  
       case 'E':
@@ -45,43 +46,35 @@ class tankMoving implements tankAction {
       default:
         throw new IllegalStateException("Somehow we have a direction that is not n, s, e, or w");
     }
-    /*switch(direction) {
-      case 'N':
-        offsetX = 0;
-        offsetY = -(int)(frac * Tile.spriteHeight);
-        break;  
-      case 'E':
-        offsetX = (int)(frac * Tile.spriteHeight);
-        offsetY = 0;
-        break;
-      case 'S': 
-        offsetX = 0;
-        offsetY = (int)(frac * Tile.spriteHeight);
-        break;  
-      case 'W':
-        offsetX = -(int)(frac * Tile.spriteHeight);
-        offsetY = 0;
-        break;  
-      default:
-        throw new IllegalStateException("Somehow we have a direction that is not n, s, e, or w");
-    }*/
-    
+    fill(255);
     rect(t.x, t.y, t.tankWidth, t.tankHeight);
   }
     
 }
     
 class tank {
-  float x, y, speed, tankWidth, tankHeight;
+  int x, y, speed, tankWidth, tankHeight;
+  int health;
+  int[] topLeft;
+  int[] topRight;
+  int[] lowerLeft;
+  int[] lowerRight;
+  
+  
   tankAction action;
   
   tank() {
     tankWidth = 20;
     tankHeight = 50;
     speed = 5;
+    health = 100;
     x = width/2 + tankWidth/4;
     y = height/2 + tankHeight/10;
     this.action = new tankIdle();
+    topLeft = new int[2];
+    topRight = new int[2];
+    lowerLeft = new int[2];
+    lowerRight = new int[2];
   }
   
   void draw() {
@@ -95,10 +88,37 @@ class tank {
       } else if (key == 'D' || key == 'd') {
         this.action = new tankMoving('E');
       }
-    } else {
+    } else {    
       this.action = new tankIdle();
     }
     action.draw(this);
+    updateCoord();
+    health();
   }
+  
+  void health() {
+    fill(0);
+    stroke(255);
+    rect(x - 40,y - 30, 100,10);
+    fill(255,0,0);
+    rect(x - 40, y - 30, this.health, 10);
+  }
+  
+  void updateCoord() {
+    topLeft[0] = x;
+    topLeft[1] = y;
+    topRight[0] = x + tankWidth;
+    topRight[1] = y;
+    lowerLeft[0] = x;
+    lowerLeft[1] = y + tankHeight;
+    lowerRight[0] = x + tankWidth;
+    lowerRight[1] = y + tankHeight;
+    
+    ellipse(topLeft[0],topLeft[1], 10,10);
+    ellipse(topRight[0],topRight[1], 10,10);
+    ellipse(lowerLeft[0],lowerLeft[1], 10,10);
+    ellipse(lowerRight[0],lowerRight[1], 10,10);
+  }
+    
   
 }

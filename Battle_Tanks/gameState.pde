@@ -49,6 +49,10 @@ class gameState {
       }
     }
     t.draw();
+    ellipse(t.x, t.y, 10, 10);
+    ellipse(t.x + t.tankWidth, t.y, 10, 10);
+    ellipse(t.x, t.y + t.tankHeight, 10, 10);
+    ellipse(t.x + t.tankWidth, t.y + t.tankHeight, 10, 10);
     
   }
    
