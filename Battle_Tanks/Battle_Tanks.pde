@@ -23,14 +23,17 @@
        
  ------------------------------------------
  # TODO #
- Everything
+ Multiplayer
+ Bullets
+ Menus
+ Control schemes
  ------------------------------------------
 */
  
  
  /********* VARIABLES *********/
 
-// We control which screen is active by settings / updating
+// We control which screen is active by setting / updating
 // gameState variable. We display the correct screen according
 // to the value of this variable.
 //
@@ -38,7 +41,6 @@
 // 1: Game Screen
 // 2: Multiplayer Lobby
 // 3: Game-Over Screen
-
 int screen = 0;
 gameState gs;
 mainMenu menu;
@@ -47,7 +49,9 @@ mainMenu menu;
 
 
 void setup() {
+  // Create a window of size 600x600
   size(600,600);
+  // initialise classes
   gs = new gameState();
   menu = new mainMenu();
   //l = new lobby();
@@ -55,6 +59,20 @@ void setup() {
 }
 
 void draw() {
+  /* 
+      Function:
+        Draw function
+      Author:
+        Sam.
+      Description:
+        Calls the draw fucntion of other classes based on the screen variable.
+        0: Initial Screen
+        1: Game Screen
+        2: Multiplayer Lobby
+        3: Game-Over Screen
+  */
+    
+  // See the ehader comment above for each screens vaslue
   if (screen == 0) {
     menu.draw();
   } else if (screen == 1) {
