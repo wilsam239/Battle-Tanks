@@ -67,8 +67,8 @@ class gameState {
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
         tiles.get(map[y][x]).draw(x, y);
-        /*line(0,j, width,j);
-        line(i,0, i,height);*/
+        /*line(0,y*30, width,y*30);
+        line(x*30,0, x*30,height);*/
       }
     }
     // draw the tank

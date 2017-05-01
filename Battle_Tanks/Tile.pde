@@ -58,7 +58,7 @@ class FloorTile implements Tile {
     shape(shape, x * spriteHeight, y * spriteHeight);
     // This text output was used to display the position in the tiles
     // array of the current shape.
-    //text(x, x*spriteHeight + spriteHeight/2, y*spriteHeight + spriteHeight/2);
+    text(x, x*spriteHeight + spriteHeight/2, y*spriteHeight + spriteHeight/2);
   }
 }
 
@@ -88,6 +88,6 @@ class WallTile implements Tile {
   
   void draw(int x, int y) {
     shape(shape, x * spriteHeight, y * spriteHeight);
-    //text(x, x*spriteHeight + spriteHeight/2, y*spriteHeight + spriteHeight/2);
+    text(x, x*spriteHeight + spriteHeight/2, y*spriteHeight + spriteHeight/2);
   }
 }
