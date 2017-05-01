@@ -52,7 +52,7 @@ class gameState {
     // 1 with wall tiles
     tiles.put(0, new FloorTile());
     tiles.put(1, new WallTile()); 
-    t = new tank();
+    t = new tank(1);
   }
   
   boolean isPassable(int x, int y) {

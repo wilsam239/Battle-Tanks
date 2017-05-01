@@ -23,7 +23,7 @@ class tank {
   PImage tankSprite;
   
   // The default contructor
-  tank() {
+  tank(int playerNumber) {
     // Set the x position
     x = width/2;
     // Set the oX position to be the x position divided by the height of the tile
@@ -36,7 +36,8 @@ class tank {
     rotation = 0;
     // Set the health of the tank to be 100
     health = 100;
-    tankSprite = loadImage("assets/tank1.png");
+    if (playerNumber == 1) tankSprite = loadImage("assets/tank1.png");
+    else if (playerNumber == 2) tankSprite = loadImage("assets/tank2.png");
   }
   
   void draw(gameState game) {
@@ -54,13 +55,8 @@ class tank {
     rotate(radians(rotation));
     // Set a white stroke
     stroke(255);
-    // Draw a rectangle in the centre of the screen.
+    // Render the tankSprite to the center of the screen
     image(tankSprite, -tWidth/2, -tHeight/2);
-    //rect(-tWidth/2,-tHeight/2,tWidth,tHeight);
-    // Set a red stroke
-    //stroke(255,0,0);
-    // Draw a line - only for testing purposes to show direction of the tank
-    //line(-tWidth/2, -tHeight/2 + 5, tWidth/2, -tHeight/2 + 5);
     // Restore the previous coordinate system
     popMatrix();
     // Delay the game by 50 milliseconds
