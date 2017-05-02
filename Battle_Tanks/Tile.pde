@@ -76,10 +76,16 @@ class WallTile implements Tile {
         colour and the isPassable variable.
   */
   PShape shape;
-  WallTile() {
-    noStroke();
-    shape = createShape(RECT, 0, 0, spriteHeight, spriteHeight);
-    shape.setFill(color(99, 53, 19));
+  PImage[] sprites = new PImage[15];
+  File[] files = listFiles("assets/tiles");
+  int tileType;
+  
+  WallTile(int type) {
+    for (int i = 0; i < files.length; i++) {
+      String path = files[i].getAbsolutePath();
+      sprites[i] = loadImage(path);
+    }
+    tileType = type;
   }
   
   boolean isPassable() {
@@ -87,7 +93,6 @@ class WallTile implements Tile {
   }
   
   void draw(int x, int y) {
-    shape(shape, x * spriteHeight, y * spriteHeight);
-    //text(x, x*spriteHeight + spriteHeight/2, y*spriteHeight + spriteHeight/2);
+    image(sprites[tileType],x * spriteHeight, y * spriteHeight);
   }
 }

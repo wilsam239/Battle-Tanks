@@ -4,6 +4,7 @@ import ddf.minim.effects.*;
 import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
+import java.io.File;
 
 /*
  # Group 14 Battle Tanks #
@@ -81,7 +82,7 @@ void draw() {
         3: Game-Over Screen
   */
     
-  // See the ehader comment above for each screens vaslue
+  // See the ehader comment above for each screens value
   if (screen == 0) {
     menu.draw();
   } else if (screen == 1) {

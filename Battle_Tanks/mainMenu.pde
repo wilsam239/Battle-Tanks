@@ -12,15 +12,17 @@ class mainMenu {
   int option1X, option1Y;
   // Stores the x and y values for the second button
   int option2X, option2Y;
+  int option3X, option3Y;
   // Stores the width of the button
   int buttonSizeWidth = 400;
   // Stores the height of the button
   int buttonSizeHeight = 50;
   // Stores a boolean that determines whether the user's mouse is over the buttons
-  boolean overOptionOne, overOptionTwo;
+  boolean overOptionOne, overOptionTwo, overOptionThree;
   // The background image of the screen
   PImage bg;
   PFont buttonFont;
+  PImage regular, hover;
   
   // The default constructor for the mainMenu
   mainMenu() {
@@ -28,28 +30,27 @@ class mainMenu {
     option1X = width/2 - buttonSizeWidth/2;
     option1Y = height/2;
     option2X = width/2 - buttonSizeWidth/2;
-    option2Y = height/2;
+    option2Y = option1Y + 3*buttonSizeHeight/2;
+    option3X = width/2 - buttonSizeWidth/2;
+    option3Y = option2Y + 3*buttonSizeHeight/2;
     // Loads the background image into the bg variable
     bg = loadImage("assets/TitleScreen.png");
     buttonFont = loadFont("data/Impact-20.vlw");
+    regular = loadImage("assets/regular.png");
+    hover = loadImage("assets/onhover.png");
   }
   
   void optionOne() {
     // Button number one
     if (overOptionOne) {
       // If the mouse is over option one
-      // Change the colour of the button
-      fill(255,0,0);
+      // Change the button to the hover image
+      image(hover,option1X, option1Y);
       if (mousePressed) {
         // If the mouse is pressed change the screen variable to start the game
         screen = 1;
       }
-    } else fill(200,200,200); // if the user's mouse is not over the button, display the defualt colour
-    // Set the stroke to white
-    stroke(255);
-    // Draw the rectangle at the x,y coords of the button
-    rectMode(CORNER);
-    rect(option1X, option1Y, buttonSizeWidth, buttonSizeHeight);
+    } else image(regular, option1X, option1Y);; // if the user's mouse is not over the button, display the regular button
     textFont(buttonFont);
     // Set the size of the text
     textSize(25);
@@ -59,6 +60,50 @@ class mainMenu {
     fill(0);
     // Display the text in the middle of the button
     text("Local Multiplayer", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+  }
+  
+  void optionTwo() {
+    // Button number two
+    if (overOptionTwo) {
+      // If the mouse is over option two
+      // Change the button to the hover image
+      image(hover,option2X, option2Y);
+      if (mousePressed) {
+        // If the mouse is pressed change the screen variable to start the game
+        screen = 1;
+      }
+    } else image(regular, option2X, option2Y);; // if the user's mouse is not over the button, display the regular button
+    textFont(buttonFont);
+    // Set the size of the text
+    textSize(25);
+    // Set the text to align to the centre of it's bounding box
+    textAlign(CENTER);
+    // Fill the text as black
+    fill(0);
+    // Display the text in the middle of the button
+    text("Online Multiplayer", option2X + buttonSizeWidth/2, option2Y + buttonSizeHeight/1.5);
+  }
+  
+  void optionThree() {
+    // Button number three
+    if (overOptionThree) {
+      // If the mouse is over option one
+      // Change the button to the hover image
+      image(hover,option3X, option3Y);
+      if (mousePressed) {
+        // If the mouse is pressed change the screen variable to start the game
+        exit();
+      }
+    } else image(regular, option3X, option3Y);; // if the user's mouse is not over the button, display the regular button
+    textFont(buttonFont);
+    // Set the size of the text
+    textSize(25);
+    // Set the text to align to the centre of it's bounding box
+    textAlign(CENTER);
+    // Fill the text as black
+    fill(0);
+    // Display the text in the middle of the button
+    text("Quit to Desktop", option3X + buttonSizeWidth/2, option3Y + buttonSizeHeight/1.5);
   }
   
   void draw() {
@@ -75,6 +120,8 @@ class mainMenu {
     update();
     // Call the optionOne function to display the first button
     optionOne();
+    optionTwo();
+    optionThree();
   }
   
   void update() {
@@ -83,9 +130,15 @@ class mainMenu {
     if ( overOptionOne(option1X, option1Y, buttonSizeWidth, buttonSizeHeight) ) {
       overOptionOne = true;
       overOptionTwo = false;
+      overOptionThree = false;
     } else if (overOptionTwo(option2X, option2Y, buttonSizeWidth, buttonSizeHeight) ) {
       overOptionTwo = true;
       overOptionOne = false;
+      overOptionThree = false;
+    } else if (overOptionThree(option3X, option3Y, buttonSizeWidth, buttonSizeHeight) ) {
+      overOptionTwo = false;
+      overOptionOne = false;
+      overOptionThree = true;
     } else overOptionOne = overOptionTwo = false;
   }
   
@@ -98,6 +151,14 @@ class mainMenu {
   }
   
   boolean overOptionTwo(int x, int y, int width, int height)  {
+    // If the mouse is in between the ends of the button return true
+    if (mouseX >= x && mouseX <= x+width && 
+        mouseY >= y && mouseY <= y+height) {
+      return true;
+    } else return false;
+  }
+  
+  boolean overOptionThree(int x, int y, int width, int height)  {
     // If the mouse is in between the ends of the button return true
     if (mouseX >= x && mouseX <= x+width && 
         mouseY >= y && mouseY <= y+height) {
