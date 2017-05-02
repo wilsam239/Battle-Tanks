@@ -1,3 +1,10 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
 /*
  # Group 14 Battle Tanks #
  ---------------------------------------
@@ -41,6 +48,7 @@
 // 1: Game Screen
 // 2: Multiplayer Lobby
 // 3: Game-Over Screen
+
 int screen = 0;
 gameState gs;
 mainMenu menu;
@@ -50,7 +58,8 @@ mainMenu menu;
 
 void setup() {
   // Create a window of size 600x600
-  size(600,600);
+  size(900,600);
+  surface.setTitle("Group 14 Battle Tanks");
   // initialise classes
   gs = new gameState();
   menu = new mainMenu();

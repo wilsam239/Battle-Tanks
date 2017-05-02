@@ -1,4 +1,4 @@
-/* 
+/*
       Function:
         tank class
       Author:
@@ -21,23 +21,39 @@ class tank {
   int tHeight = 30;
   int tWidth = 30;
   PImage tankSprite;
+  int numberOfTank;
   
   // The default contructor
   tank(int playerNumber) {
-    // Set the x position
-    x = width/2;
-    // Set the oX position to be the x position divided by the height of the tile
-    oX = x/Tile.spriteHeight - 1;
-    // Set the y position
-    y = height/2;
-    // Set the oY position of the y position divided by the height of the tile
-    oY = y/Tile.spriteHeight - 1;
-    // Set the initial rotation to be 0 (vertical)
-    rotation = 0;
     // Set the health of the tank to be 100
     health = 100;
-    if (playerNumber == 1) tankSprite = loadImage("assets/tank1.png");
-    else if (playerNumber == 2) tankSprite = loadImage("assets/tank2.png");
+    numberOfTank = playerNumber;
+    if (playerNumber == 1) { 
+      // Set the x position
+      x = 3*Tile.spriteHeight;
+      // Set the oX position to be the x position divided by the height of the tile
+      oX = x/Tile.spriteHeight - 1;
+      // Set the y position
+      y = height/2;
+      // Set the oY position of the y position divided by the height of the tile
+      oY = y/Tile.spriteHeight - 1;
+      // Set the initial rotation to be 90º (Facing right)
+      rotation = 90;
+      tankSprite = loadImage("assets/tank1.png");
+    } else if (playerNumber == 2) {
+      // Set the x position
+      x = width - 3*Tile.spriteHeight;
+      // Set the oX position to be the x position divided by the height of the tile
+      oX = x/Tile.spriteHeight - 1;
+      // Set the y position
+      y = height/2;
+      // Set the oY position of the y position divided by the height of the tile
+      oY = y/Tile.spriteHeight - 1;
+      // Set the initial rotation to be 270º (Facing left)
+      rotation = 270;
+      // Set the health of the tank to be 100
+      tankSprite = loadImage("assets/tank2.png");
+    }
   }
   
   void draw(gameState game) {
@@ -73,25 +89,49 @@ class tank {
   void keyWasPressed(char key, gameState game) {
     // Called when a key was pressed
     // Switch statement that calls the updatePos function based on the input
-    switch(key) {
-      case 'W':
-      case 'w':
-        updatePos("Forward", game);
-        break;
-      case 'A':
-      case 'a':
-        delay(100);
-        updatePos("Left", game);
-        break;
-      case 'S':
-      case 's':
-        updatePos("Backward", game);
-        break;
-      case 'D':
-      case 'd':
-        delay(100);
-        updatePos("Right", game);
-        break;
+    // and the player number
+    if (numberOfTank == 1) {
+      switch(key) {
+        case 'W':
+        case 'w':
+          updatePos("Forward", game);
+          break;
+        case 'A':
+        case 'a':
+          delay(100);
+          updatePos("Left", game);
+          break;
+        case 'S':
+        case 's':
+          updatePos("Backward", game);
+          break;
+        case 'D':
+        case 'd':
+          delay(100);
+          updatePos("Right", game);
+          break;
+      }
+    } else if (numberOfTank == 2) {
+      switch(key) {
+        case 'I':
+        case 'i':
+          updatePos("Forward", game);
+          break;
+        case 'J':
+        case 'j':
+          delay(100);
+          updatePos("Left", game);
+          break;
+        case 'K':
+        case 'k':
+          updatePos("Backward", game);
+          break;
+        case 'L':
+        case 'l':
+          delay(100);
+          updatePos("Right", game);
+          break;
+      }
     }
   }
   

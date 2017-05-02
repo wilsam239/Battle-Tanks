@@ -24,9 +24,9 @@ class mainMenu {
   // The default constructor for the mainMenu
   mainMenu() {
     // Sets the x,y coords of the buttons
-    option1X = width/6;
+    option1X = width/2 - buttonSizeWidth/2;
     option1Y = height/2;
-    option2X = width/6;
+    option2X = width/2 - buttonSizeWidth/2;
     option2Y = height/2;
     // Loads the background image into the bg variable
     bg = loadImage("assets/TitleScreen.png");
@@ -68,12 +68,12 @@ class mainMenu {
       }
     }*/
     // Call the update function and pass the mouse position in
-    update(mouseX, mouseY);
+    update();
     // Call the optionOne function to display the first button
     optionOne();
   }
   
-  void update(int x, int y) {
+  void update() {
     // Check if the current x,y coords of the mouse are over any of the buttons
     //println(x,y);
     if ( overOptionOne(option1X, option1Y, buttonSizeWidth, buttonSizeHeight) ) {

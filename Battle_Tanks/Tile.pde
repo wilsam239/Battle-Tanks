@@ -44,7 +44,7 @@ class FloorTile implements Tile {
   FloorTile() {
     noStroke();
     shape = createShape(RECT, 0, 0, spriteHeight, spriteHeight);
-    shape.setFill(color(60, 60, 60));
+    shape.setFill(color(255, 206, 109));
   }
   
   boolean isPassable() {
@@ -79,7 +79,7 @@ class WallTile implements Tile {
   WallTile() {
     noStroke();
     shape = createShape(RECT, 0, 0, spriteHeight, spriteHeight);
-    shape.setFill(color(100, 100, 80));
+    shape.setFill(color(99, 53, 19));
   }
   
   boolean isPassable() {
