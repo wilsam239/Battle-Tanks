@@ -16,7 +16,8 @@
 class tank {
   // Stores the x,y coords and the health of the tank, aswell as the
   // rotation, and x,y coords in relation to the map array
-  int x, y , health, rotation, oX, oY;
+  int x, y, health, rotation, oX, oY;
+  float healthPercentage;
   //  Stores the height and width of the tank
   int tHeight = 30;
   int tWidth = 30;
@@ -58,8 +59,6 @@ class tank {
   
   void draw(gameState game) {
     // The draw function, which recevies the gameState as passed in by the gameState class
-    // Fill the tank with black
-    fill(0);
     // If a key had been pressed call the keyWasPressed function and pass the key and
     // gameState in
     if(keyPressed) keyWasPressed(key, game);
@@ -73,6 +72,12 @@ class tank {
     stroke(255);
     // Render the tankSprite to the center of the screen
     image(tankSprite, -tWidth/2, -tHeight/2);
+    fill(0);
+    rect(-tWidth, -tHeight, 2*tWidth,10);
+    fill(255,0,0);
+    healthPercentage = (2*tWidth/100.0) * health;
+    println(healthPercentage);
+    rect(-tWidth, -tHeight, int(healthPercentage), 10);
     // Restore the previous coordinate system
     popMatrix();
     // Delay the game by 50 milliseconds
@@ -139,24 +144,28 @@ class tank {
     // Stores the next tiles based on the direction of the player
     int nextTileX;
     int nextTileY;
+    
     // If the direction the player wants to move is right, rotate the tank clockwise
     if (dir == "Right") rotateTank(true);
     // If the direction the player wants to move is left, rotate the tank anti-clockwise 
     else if (dir == "Left") rotateTank(false);
     // If the direction the player wants to go is forward
-    else if (dir == "Forward") {
+    else if (dir == "Forward" || dir == "Backward") {
       // Switch statement that moves the player depending on their rotation
+      int directionValue;
+      if (dir == "Forward") directionValue = 1;
+      else directionValue = -1;
       switch(rotation) {
         // If the player is facing Right
         case 90:
         case -90:
           // Set the next tile variables
-          nextTileX = oX + 1;
+          nextTileX = oX + directionValue;
           nextTileY = oY;
           // If the next tile is passable, move the player right
-          if (game.isPassable(nextTileX, nextTileY)) {
-            x += Tile.spriteHeight;
-            oX += 1;
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
+            x += Tile.spriteHeight * directionValue;
+            oX += directionValue;
           }
           break;
         // If the player is facing Down
@@ -164,39 +173,39 @@ class tank {
         case -180:
           // Set the next tile variables
           nextTileX = oX;
-          nextTileY = oY + 1;
+          nextTileY = oY + directionValue;
           // If the next tile is passable, move the player down
-          if (game.isPassable(nextTileX, nextTileY)) {
-            y += Tile.spriteHeight;
-            oY += 1;
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
+            y += Tile.spriteHeight * directionValue;
+            oY += directionValue;
           }
           break;
         // If the player is facing Left
         case 270:
         case -270:
           // Set the next tile variables
-          nextTileX = oX - 1;
+          nextTileX = oX - directionValue;
           nextTileY = oY;
           // If the next tile is passable, move the player left
-          if (game.isPassable(nextTileX, nextTileY)) {
-            x -= Tile.spriteHeight;
-            oX -= 1;
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
+            x -= Tile.spriteHeight * directionValue;;
+            oX -= directionValue;
           }
           break;
         // If the player is facing Up
         case 0:
           nextTileX = oX;
-          nextTileY = oY - 1;
-          if (game.isPassable(nextTileX, nextTileY)) {
-            y -= Tile.spriteHeight;
-            oY -= 1;
+          nextTileY = oY - directionValue;
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
+            y -= Tile.spriteHeight * directionValue;
+            oY -= directionValue;
           }
           break;
         // If none of the directions above are the direction, throw an error
         default:
           throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
       }
-    } else if (dir == "Backward") {
+    } /*else if (dir == "Backward") {
       // Switch statement that moves the player depending on their rotation
       switch(rotation) {
         // If the player is facing Right
@@ -248,7 +257,7 @@ class tank {
         default:
           throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
       }
-    }
+    }*/
     
     println(oX, oY, " = Current XY");
   }

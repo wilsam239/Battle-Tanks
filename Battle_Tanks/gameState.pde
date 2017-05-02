@@ -65,6 +65,25 @@ class gameState {
     return tiles.get(map[y][x]).isPassable();    
   }
   
+  boolean tankNotPresent(int x, int y, int playerNumber) {
+    // This function takes an x value, y vale and a playerNumber
+    // It checks to see if the other player is in the location x,y
+    // If they are, return false meaning that the player cannot progress
+    // If they are not, return true meaning that the player can progress
+    int tankOneX = player1.oX;
+    int tankOneY = player1.oY;
+    int tankTwoX = player2.oX;
+    int tankTwoY = player2.oY;
+    
+    if (playerNumber == 1) {
+      if (x == tankTwoX && y == tankTwoY) return false;
+      else return true;
+    } else {
+      if (x == tankOneX && y == tankOneY) return false;
+      else return true;
+    }
+  }
+  
   void draw() {
     // draw the map tiles
     for (int x = 0; x < w; x++) {

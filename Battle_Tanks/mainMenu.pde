@@ -20,6 +20,7 @@ class mainMenu {
   boolean overOptionOne, overOptionTwo;
   // The background image of the screen
   PImage bg;
+  PFont buttonFont;
   
   // The default constructor for the mainMenu
   mainMenu() {
@@ -30,6 +31,7 @@ class mainMenu {
     option2Y = height/2;
     // Loads the background image into the bg variable
     bg = loadImage("assets/TitleScreen.png");
+    buttonFont = loadFont("data/Impact-20.vlw");
   }
   
   void optionOne() {
@@ -46,15 +48,17 @@ class mainMenu {
     // Set the stroke to white
     stroke(255);
     // Draw the rectangle at the x,y coords of the button
+    rectMode(CORNER);
     rect(option1X, option1Y, buttonSizeWidth, buttonSizeHeight);
+    textFont(buttonFont);
     // Set the size of the text
-    textSize(20);
+    textSize(25);
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Fill the text as black
     fill(0);
     // Display the text in the middle of the button
-    text("Start Game", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/2);
+    text("Local Multiplayer", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
   }
   
   void draw() {
