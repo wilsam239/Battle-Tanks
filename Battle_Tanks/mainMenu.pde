@@ -126,7 +126,6 @@ class mainMenu {
   
   void update() {
     // Check if the current x,y coords of the mouse are over any of the buttons
-    //println(x,y);
     if ( overOptionOne(option1X, option1Y, buttonSizeWidth, buttonSizeHeight) ) {
       overOptionOne = true;
       overOptionTwo = false;

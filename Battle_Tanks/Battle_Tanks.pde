@@ -46,11 +46,11 @@ import java.io.File;
 // to the value of this variable.
 //
 // 0: Initial Screen
-// 1: Game Screen
+// 1: Local Multiplayer Screen
 // 2: Multiplayer Lobby
 // 3: Game-Over Screen
 
-int screen = 0;
+int screen = 1;
 gameState gs;
 mainMenu menu;
 //lobby l;

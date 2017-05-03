@@ -31,27 +31,27 @@ class tank {
     numberOfTank = playerNumber;
     if (playerNumber == 1) { 
       // Set the x position
-      x = 3*Tile.spriteHeight;
+      x = 2*Tile.spriteHeight;
       // Set the oX position to be the x position divided by the height of the tile
       oX = x/Tile.spriteHeight - 1;
       // Set the y position
-      y = height/2;
+      y = 2*Tile.spriteHeight;
       // Set the oY position of the y position divided by the height of the tile
       oY = y/Tile.spriteHeight - 1;
       // Set the initial rotation to be 90º (Facing right)
-      rotation = 90;
+      rotation = 180;
       tankSprite = loadImage("assets/tank1.png");
     } else if (playerNumber == 2) {
       // Set the x position
-      x = width - 3*Tile.spriteHeight;
+      x = width - Tile.spriteHeight;
       // Set the oX position to be the x position divided by the height of the tile
       oX = x/Tile.spriteHeight - 1;
       // Set the y position
-      y = height/2;
+      y = height-Tile.spriteHeight;
       // Set the oY position of the y position divided by the height of the tile
       oY = y/Tile.spriteHeight - 1;
       // Set the initial rotation to be 270º (Facing left)
-      rotation = 270;
+      rotation = 0;
       // Set the health of the tank to be 100
       tankSprite = loadImage("assets/tank2.png");
     }
@@ -76,7 +76,6 @@ class tank {
     rect(-tWidth, -tHeight, 2*tWidth,10);
     fill(255,0,0);
     healthPercentage = (2*tWidth/100.0) * health;
-    println(healthPercentage);
     rect(-tWidth, -tHeight, int(healthPercentage), 10);
     // Restore the previous coordinate system
     popMatrix();
@@ -205,61 +204,7 @@ class tank {
         default:
           throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
       }
-    } /*else if (dir == "Backward") {
-      // Switch statement that moves the player depending on their rotation
-      switch(rotation) {
-        // If the player is facing Right
-        case 90:
-        case -90:
-          // Set the next tile variables
-          nextTileX = oX - 1;
-          nextTileY = oY;
-          // If the next tile is passable, move the player right
-          if (game.isPassable(nextTileX, nextTileY)) {
-            x -= Tile.spriteHeight;
-            oX -= 1;
-          }
-          break;
-        // If the player is facing Down
-        case 180:
-        case -180:
-          // Set the next tile variables
-          nextTileX = oX;
-          nextTileY = oY - 1;
-          // If the next tile is passable, move the player down
-          if (game.isPassable(nextTileX, nextTileY)) {
-            y -= Tile.spriteHeight;
-            oY -= 1;
-          }
-          break;
-        // If the player is facing Left
-        case 270:
-        case -270:
-          // Set the next tile variables
-          nextTileX = oX + 1;
-          nextTileY = oY;
-          // If the next tile is passable, move the player left
-          if (game.isPassable(nextTileX, nextTileY)) {
-            x += Tile.spriteHeight;
-            oX += 1;
-          }
-          break;
-        // If the player is facing Up
-        case 0:
-          nextTileX = oX;
-          nextTileY = oY + 1;
-          if (game.isPassable(nextTileX, nextTileY)) {
-            y += Tile.spriteHeight;
-            oY += 1;
-          }
-          break;
-        // If none of the directions above are the direction, throw an error
-        default:
-          throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
-      }
-    }*/
-    
-    println(oX, oY, " = Current XY");
+    }
   }
   
   void rotateTank(boolean clockwise) {
