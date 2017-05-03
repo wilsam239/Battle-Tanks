@@ -50,9 +50,10 @@ import java.io.File;
 // 2: Multiplayer Lobby
 // 3: Game-Over Screen
 
-int screen = 1;
-gameState gs;
+int screen = 0;
+localGame gs;
 mainMenu menu;
+mapSelect mapSelector;
 //lobby l;
 //gameOver rip;
 
@@ -62,9 +63,9 @@ void setup() {
   size(900,600);
   surface.setTitle("Group 14 Battle Tanks");
   // initialise classes
-  gs = new gameState();
+  gs = new localGame();
   menu = new mainMenu();
-  //l = new lobby();
+  mapSelector = new mapSelect();
   //rip = new gameOver();
 }
 
@@ -78,7 +79,7 @@ void draw() {
         Calls the draw fucntion of other classes based on the screen variable.
         0: Initial Screen
         1: Game Screen
-        2: Multiplayer Lobby
+        2: Map Selector
         3: Game-Over Screen
   */
     
@@ -88,7 +89,7 @@ void draw() {
   } else if (screen == 1) {
     gs.draw();
   } else if (screen == 2) {
-    //l.draw();
+    mapSelector.draw(gs);
   } else if (screen == 3) {
     //rip.draw();
   }

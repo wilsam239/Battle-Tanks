@@ -40,7 +40,7 @@ class tank {
       oY = y/Tile.spriteHeight - 1;
       // Set the initial rotation to be 90º (Facing right)
       rotation = 180;
-      tankSprite = loadImage("assets/tank1.png");
+      tankSprite = loadImage("assets/tanks/tank1.png");
     } else if (playerNumber == 2) {
       // Set the x position
       x = width - Tile.spriteHeight;
@@ -53,11 +53,11 @@ class tank {
       // Set the initial rotation to be 270º (Facing left)
       rotation = 0;
       // Set the health of the tank to be 100
-      tankSprite = loadImage("assets/tank2.png");
+      tankSprite = loadImage("assets/tanks/tank2.png");
     }
   }
   
-  void draw(gameState game) {
+  void draw(localGame game) {
     // The draw function, which recevies the gameState as passed in by the gameState class
     // If a key had been pressed call the keyWasPressed function and pass the key and
     // gameState in
@@ -90,7 +90,7 @@ class tank {
      }     
   }
   
-  void keyWasPressed(char key, gameState game) {
+  void keyWasPressed(char key, localGame game) {
     // Called when a key was pressed
     // Switch statement that calls the updatePos function based on the input
     // and the player number
@@ -143,7 +143,7 @@ class tank {
     }
   }
   
-  void updatePos(String dir, gameState game) {
+  void updatePos(String dir, localGame game) {
     // Stores the next tiles based on the direction of the player
     int nextTileX;
     int nextTileY;
