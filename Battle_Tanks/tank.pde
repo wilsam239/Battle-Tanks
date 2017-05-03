@@ -229,19 +229,13 @@ class tank {
       else if (rotation == 0) rotation = 270;
       else rotation -= 90;
     }
-  } 
-  
-  void bullet(){
-    int size = 5;
-    int x = 0;
-    int y = 0;
-    
   }
   
-  void fireBullet(boolean firestate){
+    void fireBullet(boolean firestate){
     if (firestate){
       //new bullet();
     }
     
   }
+  
 }
