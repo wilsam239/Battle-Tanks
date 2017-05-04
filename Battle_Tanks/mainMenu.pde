@@ -48,7 +48,7 @@ class mainMenu {
       if (mousePressed) {
         // If the mouse is pressed change the screen variable to start the game
         screen = 2;
-        delay(100);
+        delay(200);
       }
     } else {
       // if the user's mouse is not over the button, display the regular button
