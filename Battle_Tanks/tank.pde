@@ -233,7 +233,7 @@ class tank {
   
     void fireBullet(boolean firestate){
     if (firestate){
-      //new bullet();
+      //new Bullet.bullet();
     }
     
   }
