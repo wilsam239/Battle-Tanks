@@ -114,10 +114,9 @@ class tank {
           delay(100);
           updatePos("Right", game);
           break;
-        /* case 'F':
         case 'f':
           delay(100);
-          */
+          firestate = true;
       }
     } else if (numberOfTank == 2) {
       switch(key) {
@@ -139,6 +138,10 @@ class tank {
           delay(100);
           updatePos("Right", game);
           break;
+        /*case ';':
+        case ':':
+          delay(100);
+        */
       }
     }
   }
@@ -230,12 +233,7 @@ class tank {
       else rotation -= 90;
     }
   }
-  
-    void fireBullet(boolean firestate){
-    if (firestate){
-      //new Bullet.bullet();
-    }
-    
-  }
-  
+}
+
+class bullet{
 }
