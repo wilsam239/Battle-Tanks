@@ -236,4 +236,6 @@ class tank {
 }
 
 class bullet{
+  int lRect = 3;
+  int wRect = 4;
 }
