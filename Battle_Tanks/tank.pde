@@ -23,6 +23,7 @@ class tank {
   int tWidth = 30;
   PImage tankSprite;
   int numberOfTank;
+  boolean firestate;
   
   // The default contructor
   tank(int playerNumber) {
@@ -62,6 +63,7 @@ class tank {
     // If a key had been pressed call the keyWasPressed function and pass the key and
     // gameState in
     if(keyPressed) keyWasPressed(key, game);
+    
     // Push the current coordinate system to the stack
     pushMatrix();
     // Translate to the centre of the shape
@@ -72,6 +74,7 @@ class tank {
     stroke(255);
     // Render the tankSprite to the center of the screen
     image(tankSprite, -tWidth/2, -tHeight/2);
+    // Render the healthbar of the tank
     fill(0);
     rect(-tWidth, -tHeight, 2*tWidth,10);
     fill(255,0,0);
@@ -79,15 +82,6 @@ class tank {
     rect(-tWidth, -tHeight, int(healthPercentage), 10);
     // Restore the previous coordinate system
     popMatrix();
-    // Delay the game by 50 milliseconds
-    delay(50);
-    // If the key that was pressed was A or D (rotation keys)
-    // Delay the game by another 50 milliseconds
-    if(keyPressed) {
-      if (key == 'A' || key == 'a' || key == 'D' || key == 'd') {
-        delay(50);
-      }
-     }     
   }
   
   void keyWasPressed(char key, localGame game) {
@@ -102,7 +96,6 @@ class tank {
           break;
         case 'A':
         case 'a':
-          delay(100);
           updatePos("Left", game);
           break;
         case 'S':
@@ -111,11 +104,9 @@ class tank {
           break;
         case 'D':
         case 'd':
-          delay(100);
           updatePos("Right", game);
           break;
         case 'f':
-          delay(100);
           firestate = true;
       }
     } else if (numberOfTank == 2) {
@@ -126,7 +117,6 @@ class tank {
           break;
         case 'J':
         case 'j':
-          delay(100);
           updatePos("Left", game);
           break;
         case 'K':
@@ -135,7 +125,6 @@ class tank {
           break;
         case 'L':
         case 'l':
-          delay(100);
           updatePos("Right", game);
           break;
         /*case ';':

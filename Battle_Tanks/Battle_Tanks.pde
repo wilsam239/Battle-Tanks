@@ -5,6 +5,7 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 import java.io.File;
+import processing.net.*;
 
 /*
  # Group 14 Battle Tanks #
