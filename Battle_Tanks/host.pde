@@ -10,7 +10,7 @@
         
         The gameState creates a tank, then draws both the tank and the
         tiles.
-
+*/
 class host {
   // What number maps to what sort of tile. eg 1 -> Floor tile
   // The hashmap of tile objects, referenced by an integer key called tiles
@@ -51,7 +51,7 @@ class host {
   Server server;
   String[] components;
   
-  host() {
+  host(PApplet sketch) {
     // Creates a tiles hashamp
     set = (int)random(1,2.5);
     tiles = new HashMap<Integer, Tile>();
@@ -69,9 +69,8 @@ class host {
     player1 = new tank(1);
     player2 = new tank(2);
     // Create the Server on port 5204
-    server = new Server(this, 5204);
+    server = new Server(sketch, 5204);
     
   }
     
 }
-*/
