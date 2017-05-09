@@ -5,6 +5,7 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 import java.io.File;
+import processing.net.*;
 
 /*
  # Group 14 Battle Tanks #
@@ -56,6 +57,7 @@ mainMenu menu;
 mapSelect mapSelector;
 //lobby l;
 //gameOver rip;
+boolean[] keys; // Tracks which keys are currently being pressed.
 
 
 void setup() {
@@ -67,6 +69,18 @@ void setup() {
   menu = new mainMenu();
   mapSelector = new mapSelect();
   //rip = new gameOver();
+  
+  keys = new boolean[10];
+  keys[0] = false;
+  keys[1] = false;
+  keys[2] = false;
+  keys[3] = false;
+  keys[4] = false;
+  keys[5] = false;
+  keys[6] = false;
+  keys[7] = false;
+  keys[8] = false;
+  keys[9] = false;
 }
 
 void draw() {
@@ -93,4 +107,50 @@ void draw() {
   } else if (screen == 3) {
     //rip.draw();
   }
+}
+
+void keyPressed() {
+  /* 
+      Function:
+        keyPressed function
+      Author:
+        Ben.
+      Description:
+        Keeps track of which key has been pressed, updating the keys array accordingly.
+        Together with keyReleased(), it keeps track of which keys are currently held
+        down, allowing both tanks to move at once.
+  */
+  if (key == 'W' || key == 'w') keys[0] = true;
+  if (key == 'A' || key == 'a') keys[1] = true;
+  if (key == 'S' || key == 's') keys[2] = true;
+  if (key == 'D' || key == 'd') keys[3] = true;
+  if (key == 'F' || key == 'f') keys[4] = true;
+  if (key == 'I' || key == 'i') keys[5] = true;
+  if (key == 'J' || key == 'j') keys[6] = true;
+  if (key == 'K' || key == 'k') keys[7] = true;
+  if (key == 'L' || key == 'l') keys[8] = true;
+  if (key == ':' || key == ';') keys[9] = true;
+}
+
+void keyReleased() {
+  /* 
+      Function:
+        keyReleased function
+      Author:
+        Ben.
+      Description:
+        Keeps track of which key has been released, updating the keys array accordingly.
+        Together with keyPressed(), it keeps track of which keys are currently held
+        down, allowing both tanks to move at once.
+  */
+  if (key == 'W' || key == 'w') keys[0] = false;
+  if (key == 'A' || key == 'a') keys[1] = false;
+  if (key == 'S' || key == 's') keys[2] = false;
+  if (key == 'D' || key == 'd') keys[3] = false;
+  if (key == 'F' || key == 'f') keys[4] = false;
+  if (key == 'I' || key == 'i') keys[5] = false;
+  if (key == 'J' || key == 'j') keys[6] = false;
+  if (key == 'K' || key == 'k') keys[7] = false;
+  if (key == 'L' || key == 'l') keys[8] = false;
+  if (key == ':' || key == ';') keys[9] = false;
 }

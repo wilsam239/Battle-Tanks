@@ -10,8 +10,8 @@
         
         The gameState creates a tank, then draws both the tank and the
         tiles.
-*/
-class localGame {
+
+class host {
   // What number maps to what sort of tile. eg 1 -> Floor tile
   // The hashmap of tile objects, referenced by an integer key called tiles
   HashMap<Integer, Tile> tiles;
@@ -107,6 +107,7 @@ class localGame {
     { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
     { 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
   };
+  
   // The actual map that the game iwll use
   int[][] gameMap = new int [20][30];
   // Stores the height and width of the map array
@@ -117,8 +118,15 @@ class localGame {
   // Each players tank
   tank player1;
   tank player2;
+  Server server;
+  ArrayList <Client> clientSet;
+  String[] components;
+  float[] clientX;
+  float[] clientY;
+  float[] Thetas;
+  String[] clientID;
   
-  localGame() {
+  host(PApplet sketch) {
     // Creates a tiles hashamp
     set = (int)random(1,2.5);
     tiles = new HashMap<Integer, Tile>();
@@ -135,6 +143,36 @@ class localGame {
     //tiles.put(2, new WallTile(1));
     player1 = new tank(1);
     player2 = new tank(2);
+    // Create the Server on port 5204
+    server = new Server(sketch, 5204);
+  }
+  
+  void draw() {
+    float[] clientX = new float[clientSet.size()];
+    float[] clientY = new float[clientSet.size()];
+    float[] Thetas = new float[clientSet.size()];
+    String[] clientID = new String[clientSet.size()];
+    
+    // If a client is available, we will find out
+    // If there is no client, it will be"null"
+    for(int i = 0; i< clientSet.size(); i++) {
+      if((clientSet.get(i).available()>0)) {
+      
+      }
+    }
+        
+    // draw the map tiles
+    for (int x = 0; x < w; x++) {
+      for (int y = 0; y < h; y++) {
+        tiles.get(gameMap[y][x]).draw(x, y);
+        /*line(0,y*30, width,y*30);
+        line(x*30,0, x*30,height);
+      }
+    }
+    // draw the tanks
+    player1.draw(this);
+    player2.draw(this);
+    header();
   }
   
   boolean isPassable(int x, int y) {
@@ -163,25 +201,10 @@ class localGame {
     }
   }
   
-  void draw() {
-    // draw the map tiles
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        tiles.get(gameMap[y][x]).draw(x, y);
-        /*line(0,y*30, width,y*30);
-        line(x*30,0, x*30,height);*/
-      }
-    }
-    // draw the tanks
-    player1.draw(this);
-    player2.draw(this);
-    header();
-  }
-  
   void selectMap(int mapNumber) {
     // This function is called to set the map that will be used
-    // If the mapNumber is 1 , set all the values of gameMap to be the values in mapOne
-    // Repeat for maps 2 , 3 and 4.
+    // If the mapNumber is 1, set all the values of gameMap to be the values in mapOne
+    // Repeat for maps 2, 3 and 4.
     if(mapNumber == 1) {
       for (int x = 0; x < w; x++) {
         for (int y = 0; y < h; y++) {
@@ -212,4 +235,6 @@ class localGame {
   void header() {
     
   }
+    
+    
 }
