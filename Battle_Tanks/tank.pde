@@ -2,7 +2,7 @@
       Function:
         tank class
       Author:
-        Sam
+        Sam, checkMovement() by Ben
       Description:
         This class stores all of the information related to the tanks.
         Including the x,y position, the height and width of the tank,
@@ -62,7 +62,8 @@ class tank {
     // The draw function, which recevies the gameState as passed in by the gameState class
     // If a key had been pressed call the keyWasPressed function and pass the key and
     // gameState in
-    if(keyPressed) keyWasPressed(key, game);
+    /* if(keyPressed) keyWasPressed(key, game); */
+    checkMovement(game);
     
     // Push the current coordinate system to the stack
     pushMatrix();
@@ -84,7 +85,25 @@ class tank {
     popMatrix();
   }
   
-  void keyWasPressed(char key, localGame game) {
+  void checkMovement(localGame game) {
+    // Checks if a key is currently being pressed, and calls the updatePos
+    // function based on the keys that are held down and the player number
+    if (numberOfTank == 1) {
+      if (keys[0]) updatePos("Forward", game);
+      if (keys[1]) updatePos("Left", game);
+      if (keys[2]) updatePos("Backward", game);
+      if (keys[3]) updatePos("Right", game);
+      if (keys[4]) firestate = true;
+    } else if (numberOfTank == 2) {
+       if (keys[5]) updatePos("Forward", game);
+      if (keys[6]) updatePos("Left", game);
+      if (keys[7]) updatePos("Backward", game);
+      if (keys[8]) updatePos("Right", game);
+      if (keys[9]) firestate = true;
+    }
+  }
+  
+/*  void keyWasPressed(char key, localGame game) {
     // Called when a key was pressed
     // Switch statement that calls the updatePos function based on the input
     // and the player number
@@ -130,10 +149,10 @@ class tank {
         /*case ';':
         case ':':
           delay(100);
-        */
+        *
       }
     }
-  }
+  }*/
   
   void updatePos(String dir, localGame game) {
     // Stores the next tiles based on the direction of the player
