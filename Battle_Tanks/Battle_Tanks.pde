@@ -55,6 +55,8 @@ int screen = 0;
 localGame gs;
 mainMenu menu;
 mapSelect mapSelector;
+host Host;
+user User;
 //lobby l;
 //gameOver rip;
 
@@ -67,6 +69,9 @@ void setup() {
   gs = new localGame();
   menu = new mainMenu();
   mapSelector = new mapSelect();
+  //Host = new host(this);
+  //User = new user(this);
+  
   //rip = new gameOver();
 }
 

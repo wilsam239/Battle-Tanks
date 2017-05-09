@@ -1,8 +1,8 @@
 /* 
       Function:
-        localGame class
+        host class
       Author:
-        Sam, based on the in class lecture code
+        Sam.
       Description:
         This class is sued to render the game. It creates a map using
         a 2d array. A hash map is used to define the fact that:
@@ -10,231 +10,93 @@
         
         The gameState creates a tank, then draws both the tank and the
         tiles.
-
+*/
 class host {
-  // What number maps to what sort of tile. eg 1 -> Floor tile
-  // The hashmap of tile objects, referenced by an integer key called tiles
-  HashMap<Integer, Tile> tiles;
-  // grid of tiles that is each map
-  int[][] mapOne = new int[][] {
-    { 1 , 6 , 6 , 9 , 6 , 6 , 6 , 6 , 6 , 6 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 2  },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 5 , 6 , 6 , 2 , 0 , 14 },
-    { 14, 0 , 5 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 14 },
-    { 14, 0 , 5 , 6 , 9 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 14 },
-    { 14, 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 14 },
-    { 14, 0 , 0 , 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 6 , 7 , 0 , 0 , 14, 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 14 },
-    { 14, 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 3 , 6 , 6 , 6 , 6 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 6 , 6 , 10 },
-    { 11, 6 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 10, 0 , 0 , 0 , 0 , 1 , 7 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 5 , 6 , 6 , 6 , 12, 6 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 3 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
-  };
-  
-  int[][] mapTwo = new int[][] {
-    { 1 , 6 , 6 , 9 , 6 , 6 , 6 , 6 , 6 , 6 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 2  },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 5 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 1 , 6 , 7 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 5 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 ,  2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 3 ,  4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 7 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 5 , 6 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 7 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
-  };
-  
-  int[][] mapThree = new int[][] {
-    { 1 , 6 , 6 , 9 , 6 , 6 , 6 , 6 , 6 , 6 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 2  },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 5 , 4 , 0 , 0 , 13, 0 , 0 , 0 , 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 4 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 11, 6 , 6 , 6 , 10 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 6 , 6 , 7 , 0 , 0 , 5 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 1 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 1 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 3 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 14, 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 7 , 0 , 0 , 5 , 6 , 6 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 14 },
-    { 11, 6 , 6 , 6 , 6 , 6 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 1 , 7 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 13, 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 3 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
-  };
-  
-  int[][] mapFour = new int[][] {
-    { 1 , 6 , 6 , 9 , 6 , 6 , 6 , 6 , 6 , 6 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 9 , 6 , 2  },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 14 },
-    { 14, 0 , 5 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 3 , 6 , 6 , 6 , 9 , 6 , 6 , 6 , 6 , 4 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 1 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 5 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 10, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 13, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 5 , 6 , 10 },
-    { 14, 0 , 0 , 3 , 6 , 7 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 11, 6 , 6 , 6 , 10 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 6 , 7 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15, 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 6 , 9 , 7 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14 },
-    { 14, 0 , 0 , 13, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 7 , 0 , 14 },
-    { 14, 0 , 0 , 15, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 5 , 7 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
-    { 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
-  };
-  
-  // The actual map that the game iwll use
-  int[][] gameMap = new int [20][30];
-  // Stores the height and width of the map array
-  int h = gameMap.length;
-  int w = gameMap[0].length;
-  // Stores the randomly generated number that tells the map to laod a certain set of tiles
-  int set;
-  // Each players tank
-  tank player1;
-  tank player2;
+
   Server server;
   ArrayList <Client> clientSet;
+  int x, y, health, rotation, oX, oY;
   String[] components;
   float[] clientX;
   float[] clientY;
   float[] Thetas;
   String[] clientID;
+  PImage[] tankSprite;
   
   host(PApplet sketch) {
-    // Creates a tiles hashamp
-    set = (int)random(1,2.5);
-    tiles = new HashMap<Integer, Tile>();
-    // Pair the values with the tiles
-    // 0 with floor tiles
-    // 1-15 with wall tiles
-    // Pass the set integer into the class to load the appropriate tile.
-    tiles.put(0, new FloorTile(set));
-    int counter = 1;
-    for (int i = 0; i < 15; i++) {
-      tiles.put(counter, new WallTile(i, set));
-      counter++;
-    }
-    //tiles.put(2, new WallTile(1));
-    player1 = new tank(1);
-    player2 = new tank(2);
     // Create the Server on port 5204
     server = new Server(sketch, 5204);
+    clientSet = new ArrayList<Client>();
+    components = new String[3];
+    components[0] = str(width  - Tile.spriteHeight);
+    components[1] = str(height - Tile.spriteHeight);
+    components[2] = str(0);
+    
+    tankSprite = new PImage[2];
+    tankSprite[0] = loadImage("assets/tanks/tank1.png");
+    tankSprite[1] = loadImage("assets/tanks/tank2.png");
+    
+    x = 2*Tile.spriteHeight;
+    oX = x/Tile.spriteHeight - 1;
+    y = 2*Tile.spriteHeight;
+    oY = y/Tile.spriteHeight - 1;
+    rotation = 180;
   }
   
   void draw() {
+    background(0);
     float[] clientX = new float[clientSet.size()];
     float[] clientY = new float[clientSet.size()];
     float[] Thetas = new float[clientSet.size()];
     String[] clientID = new String[clientSet.size()];
     
+    pushMatrix();
+    translate(x-15, y-15);
+    rotate(radians(rotation));
+    image(tankSprite[0], -15, -15);
+    popMatrix();
+    
     // If a client is available, we will find out
     // If there is no client, it will be"null"
     for(int i = 0; i< clientSet.size(); i++) {
       if((clientSet.get(i).available()>0)) {
-      
-      }
-    }
+        // We should only proceed if the client is not null
+        String incomingMessage;
+        incomingMessage = clientSet.get(i).readStringUntil('\n'); 
+        // Print to Processing message window
+        //println("Client says: " + incomingMessage);
+        if(incomingMessage!=null){
+           components = incomingMessage.split(",");
+        }
         
-    // draw the map tiles
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        tiles.get(gameMap[y][x]).draw(x, y);
-        /*line(0,y*30, width,y*30);
-        line(x*30,0, x*30,height);
+        clientX[i] = float(components[0]);
+        clientY[i] = float(components[1]);
+        Thetas[i] = float(components[2]);
+        clientID[i] = trim(components[3]);
+        
+        pushMatrix();
+        translate(float(components[0]), float(components[1]));
+        rotate(radians(float(components[2])));
+        image(tankSprite[1+i], -15, -15);
+        popMatrix();
       }
     }
-    // draw the tanks
-    player1.draw(this);
-    player2.draw(this);
-    header();
-  }
+    String toSend = str(x)+","+str(y)+","+str(rotation)+","+"0"+";";
   
-  boolean isPassable(int x, int y) {
-    // This function takes an x and y value
-    // It then checks the x and y position in the map array
-    // and returns whether the tile is passable or not.
-    return tiles.get(gameMap[y][x]).isPassable();    
-  }
-  
-  boolean tankNotPresent(int x, int y, int playerNumber) {
-    // This function takes an x value, y vale and a playerNumber
-    // It checks to see if the other player is in the location x,y
-    // If they are, return false meaning that the player cannot progress
-    // If they are not, return true meaning that the player can progress
-    int tankOneX = player1.oX;
-    int tankOneY = player1.oY;
-    int tankTwoX = player2.oX;
-    int tankTwoY = player2.oY;
-    
-    if (playerNumber == 1) {
-      if (x == tankTwoX && y == tankTwoY) return false;
-      else return true;
-    } else {
-      if (x == tankOneX && y == tankOneY) return false;
-      else return true;
+    for(int x = 0; x< clientX.length; x++){
+     
+      toSend = toSend+str(clientX[x])+","+str(clientY[x])+","+str(Thetas[x])+","+clientID[x]+";";
+      
     }
+    
+    println(toSend);
+     //Broadcast the position
+    server.write(toSend+"\n");
   }
   
-  void selectMap(int mapNumber) {
-    // This function is called to set the map that will be used
-    // If the mapNumber is 1, set all the values of gameMap to be the values in mapOne
-    // Repeat for maps 2, 3 and 4.
-    if(mapNumber == 1) {
-      for (int x = 0; x < w; x++) {
-        for (int y = 0; y < h; y++) {
-         gameMap[y][x] = mapOne[y][x];
-        }
-      }
-    } else if (mapNumber == 2) {
-      for (int x = 0; x < w; x++) {
-        for (int y = 0; y < h; y++) {
-         gameMap[y][x] = mapTwo[y][x];
-        }
-      }
-    } else if (mapNumber == 3) {
-      for (int x = 0; x < w; x++) {
-        for (int y = 0; y < h; y++) {
-         gameMap[y][x] = mapThree[y][x];
-        }
-      }
-    } else if (mapNumber == 4) {
-      for (int x = 0; x < w; x++) {
-        for (int y = 0; y < h; y++) {
-         gameMap[y][x] = mapFour[y][x];
-        }
-      }
-    }
+  void serverEvent(Server server, Client client) {
+    println("A new client has connected: " + client.ip());
+    clientSet.add(client);
   }
-  
-  void header() {
-    
-  }
-    
     
 }

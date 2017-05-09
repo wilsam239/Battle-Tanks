@@ -20,7 +20,7 @@ class mainMenu {
   // Stores a boolean that determines whether the user's mouse is over the buttons
   boolean overOptionOne, overOptionTwo, overOptionThree;
   // The background image of the screen
-  PImage bg;
+  PImage bg, loadingImg;
   PFont buttonFont;
   PImage regular, hover;
   
@@ -33,9 +33,12 @@ class mainMenu {
     option3Y = option2Y + 3*buttonSizeHeight/2;
     // Loads the background image into the bg variable
     bg = loadImage("assets/screens/TitleScreen2.png");
+    //loadingImg = loadImage("assets/screens/loading.png");
     buttonFont = loadFont("data/Impact-20.vlw");
     regular = loadImage("assets/buttons/regular.png");
     hover = loadImage("assets/buttons/onhover.png");
+    
+    //background(loadingImg);
   }
   
   void optionOne() {
@@ -48,7 +51,7 @@ class mainMenu {
       if (mousePressed) {
         // If the mouse is pressed change the screen variable to start the game
         screen = 2;
-        delay(200);
+        delay(100);
       }
     } else {
       // if the user's mouse is not over the button, display the regular button
