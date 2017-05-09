@@ -2,7 +2,7 @@
       Function:
         localGame class
       Author:
-        Sam, based on the in class lecture code
+        Sam, based on the in class lecture code. updateKeys() by Ben.
       Description:
         This class is sued to render the game. It creates a map using
         a 2d array. A hash map is used to define the fact that:
@@ -117,6 +117,8 @@ class localGame {
   // Each players tank
   tank player1;
   tank player2;
+  // Tracks which keys are currently being pressed.
+  boolean[] keys;
   
   localGame() {
     // Creates a tiles hashamp
@@ -135,6 +137,64 @@ class localGame {
     //tiles.put(2, new WallTile(1));
     player1 = new tank(1);
     player2 = new tank(2);
+  
+    keys = new boolean[10];
+    keys[0] = false;
+    keys[1] = false;
+    keys[2] = false;
+    keys[3] = false;
+    keys[4] = false;
+    keys[5] = false;
+    keys[6] = false;
+    keys[7] = false;
+    keys[8] = false;
+    keys[9] = false;
+  }
+  
+  void updateKeys(char pressedKey, boolean press) {
+    // Updates the keys array when a key is pressed. This is done so that
+    // multiple key presses can be tracked at the same time, allowing both
+    // tanks to move without their key presses cancelling out each other.
+    if (pressedKey == 'W' || pressedKey == 'w') {
+      if (press == true) keys[0] = true;
+      else keys[0] = false;
+    }
+    if (pressedKey == 'A' || pressedKey == 'a') {
+      if (press == true) keys[1] = true;
+      else keys[1] = false;
+    }
+    if (pressedKey == 'S' || pressedKey == 's') {
+      if (press == true) keys[2] = true;
+      else keys[2] = false;
+    }
+    if (pressedKey == 'D' || pressedKey == 'd') {
+      if (press == true) keys[3] = true;
+      else keys[3] = false;
+    }
+    if (pressedKey == 'F' || pressedKey == 'f') {
+      if (press == true) keys[4] = true;
+      else keys[4] = false;
+    }
+    if (pressedKey == 'I' || pressedKey == 'i') {
+      if (press == true) keys[5] = true;
+      else keys[5] = false;
+    }
+    if (pressedKey == 'J' || pressedKey == 'j') {
+      if (press == true) keys[6] = true;
+      else keys[6] = false;
+    }
+    if (pressedKey == 'K' || pressedKey == 'k') {
+      if (press == true) keys[7] = true;
+      else keys[7] = false;
+    }
+    if (pressedKey == 'L' || pressedKey == 'l') {
+      if (press == true) keys[8] = true;
+      else keys[8] = false;
+    }
+    if (pressedKey == ':' || pressedKey == ';') {
+      if (press == true) keys[9] = true;
+      else keys[9] = false;
+    }
   }
   
   boolean isPassable(int x, int y) {
