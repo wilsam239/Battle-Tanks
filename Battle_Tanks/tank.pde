@@ -235,7 +235,21 @@ class tank {
   }
 }
 
-class bullet{
+/*class bullet{
   int lRect = 3;
   int wRect = 4;
-}
+  int x, oX, y, oY
+  // default Constructor
+  bullet(int player){
+    if (player == 1){
+      x = tank.x;
+      oX = x+3;
+    } else if (player == 2){
+      x = player2.x
+    }
+    
+  }
+  
+  void updatePos(String dir){
+ 
+}*/
