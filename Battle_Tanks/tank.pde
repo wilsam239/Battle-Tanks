@@ -350,17 +350,17 @@ class tank {
     // Checks if a key is currently being pressed, and calls the updatePos
     // function based on the keys that are held down and the player number
     if (numberOfTank == 1) {
-      if (keys[0]) updatePos("Forward", game);
-      if (keys[1]) updatePos("Left", game);
-      if (keys[2]) updatePos("Backward", game);
-      if (keys[3]) updatePos("Right", game);
-      if (keys[4]) firestate = true;
+      if (game.keys[0]) updatePos("Forward", game);
+      if (game.keys[1]) updatePos("Left", game);
+      if (game.keys[2]) updatePos("Backward", game);
+      if (game.keys[3]) updatePos("Right", game);
+      if (game.keys[4]) firestate = true;
     } else if (numberOfTank == 2) {
-       if (keys[5]) updatePos("Forward", game);
-      if (keys[6]) updatePos("Left", game);
-      if (keys[7]) updatePos("Backward", game);
-      if (keys[8]) updatePos("Right", game);
-      if (keys[9]) firestate = true;
+      if (game.keys[5]) updatePos("Forward", game);
+      if (game.keys[6]) updatePos("Left", game);
+      if (game.keys[7]) updatePos("Backward", game);
+      if (game.keys[8]) updatePos("Right", game);
+      if (game.keys[9]) firestate = true;
     }
   }
   
