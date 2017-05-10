@@ -10,6 +10,8 @@
 
 interface TankState {
   
+  int[] movingTo(tank t);
+  
   void draw(tank t);
   
   void onComplete(tank t);
@@ -29,6 +31,13 @@ interface TankState {
 */
 
 class TankStill implements TankState {
+  
+  int[] movingTo(tank t) {
+    int[] nextLoc = new int[2];
+    nextLoc[0] = t.oX;
+    nextLoc[1] = t.oY;
+    return nextLoc;
+  }
   
   void draw(tank t) {
     // Push the current coordinate system to the stack
@@ -75,10 +84,36 @@ class TankMoving implements TankState {
   long duration = 100;
   long whenBegan;
   char direction;
+  // Tracks the space on the grid that the tank is moving to.
   
   TankMoving (char dir) {
     whenBegan = millis();
     direction = dir;
+  }
+  
+  int[] movingTo(tank t) {
+    int[] nextLoc = new int[2];
+    switch(direction) {
+      case 'N':
+        nextLoc[0] = t.oX;
+        nextLoc[1] = t.oY - 1;
+        break;
+      case 'E':
+        nextLoc[0] = t.oX + 1;
+        nextLoc[1] = t.oY;
+        break;
+      case 'S':
+        nextLoc[0] = t.oX;
+        nextLoc[1] = t.oY + 1;
+        break;
+      case 'W':
+        nextLoc[0] = t.oX - 1;
+        nextLoc[1] = t.oY;
+        break;
+      default:
+        throw new IllegalStateException("The tank has somehow tried to move in an illegal direction");
+    }
+    return nextLoc;
   }
   
   void draw(tank t) {
@@ -175,6 +210,13 @@ class TankTurning implements TankState {
   TankTurning (char dir) {
     whenBegan = millis();
     direction = dir;
+  }
+  
+  int[] movingTo(tank t) {
+    int[] nextLoc = new int[2];
+    nextLoc[0] = t.oX;
+    nextLoc[1] = t.oY;
+    return nextLoc;
   }
   
   void draw(tank t) {
@@ -439,8 +481,12 @@ class tank {
           nextTileY = oY;
           // If the next tile is passable, move the player right
           if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
-            if (directionValue > 0) state = new TankMoving('E');
-            else state = new TankMoving('W');
+            if (directionValue > 0 && game.tankNotMoving(numberOfTank, oX + 1, oY)) {
+              state = new TankMoving('E');
+            }
+            else if (directionValue < 0 && game.tankNotMoving(numberOfTank, oX - 1, oY)) {
+              state = new TankMoving('W');
+            }
             /*x += Tile.spriteHeight * directionValue;
             oX += directionValue;*/
           }
@@ -453,8 +499,11 @@ class tank {
           nextTileY = oY + directionValue;
           // If the next tile is passable, move the player down
           if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
-            if (directionValue > 0) state = new TankMoving('S');
-            else state = new TankMoving('N');
+            if (directionValue > 0 && game.tankNotMoving(numberOfTank, oX, oY + 1)) {
+              state = new TankMoving('S');
+            } else if (directionValue < 0 && game.tankNotMoving(numberOfTank, oX, oY - 1)) {
+              state = new TankMoving('N');
+            }
             /*y += Tile.spriteHeight * directionValue;
             oY += directionValue;*/
           }
@@ -467,8 +516,11 @@ class tank {
           nextTileY = oY;
           // If the next tile is passable, move the player left
           if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
-            if (directionValue > 0) state = new TankMoving('W');
-            else state = new TankMoving('E');
+            if (directionValue > 0 && game.tankNotMoving(numberOfTank, oX - 1, oY)) {
+              state = new TankMoving('W');
+            } else if (directionValue < 0 && game.tankNotMoving(numberOfTank, oX + 1, oY)) {
+              state = new TankMoving('E');
+            }
             /*x -= Tile.spriteHeight * directionValue;;
             oX -= directionValue;*/
           }
@@ -478,8 +530,11 @@ class tank {
           nextTileX = oX;
           nextTileY = oY - directionValue;
           if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, numberOfTank)) {
-            if (directionValue > 0) state = new TankMoving('N');
-            else state = new TankMoving('S');
+            if (directionValue > 0 && game.tankNotMoving(numberOfTank, oX, oY - 1)) {
+              state = new TankMoving('N');
+            } else if (directionValue < 0 && game.tankNotMoving(numberOfTank, oX, oY + 1)) {
+              state = new TankMoving('S');
+            }
             /*y -= Tile.spriteHeight * directionValue;
             oY -= directionValue;*/
           }
