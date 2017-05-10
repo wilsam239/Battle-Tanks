@@ -19,43 +19,35 @@ class host {
   String[] components;
   float[] clientX;
   float[] clientY;
+  int[] clientHealth;
   float[] Thetas;
   String[] clientID;
-  PImage[] tankSprite;
+  PImage tankSprite;
   
   host(PApplet sketch) {
     // Create the Server on port 5204
     server = new Server(sketch, 5204);
     clientSet = new ArrayList<Client>();
-    components = new String[3];
+    components = new String[5];
+    /*
     components[0] = str(width  - Tile.spriteHeight);
     components[1] = str(height - Tile.spriteHeight);
     components[2] = str(0);
+    components[3] = str(100);*/
     
-    tankSprite = new PImage[2];
-    tankSprite[0] = loadImage("assets/tanks/tank1.png");
-    tankSprite[1] = loadImage("assets/tanks/tank2.png");
+    //tankSprite = new PImage[2];
+    tankSprite = loadImage("assets/tanks/tank2.png");
+    //tankSprite[1] = loadImage("assets/tanks/tank2.png");
     
-    x = 2*Tile.spriteHeight;
-    oX = x/Tile.spriteHeight - 1;
-    y = 2*Tile.spriteHeight;
-    oY = y/Tile.spriteHeight - 1;
-    rotation = 180;
   }
-  
+
   void draw() {
-    background(0);
     float[] clientX = new float[clientSet.size()];
     float[] clientY = new float[clientSet.size()];
     float[] Thetas = new float[clientSet.size()];
+    int[] clientHealth = new int[clientSet.size()];
     String[] clientID = new String[clientSet.size()];
-    
-    pushMatrix();
-    translate(x-15, y-15);
-    rotate(radians(rotation));
-    image(tankSprite[0], -15, -15);
-    popMatrix();
-    
+   
     // If a client is available, we will find out
     // If there is no client, it will be"null"
     for(int i = 0; i< clientSet.size(); i++) {
@@ -67,36 +59,21 @@ class host {
         //println("Client says: " + incomingMessage);
         if(incomingMessage!=null){
            components = incomingMessage.split(",");
+           // X - Y - rotation - health -id
+          clientX[i] = float(components[0]);
+          clientY[i] = float(components[1]);
+          Thetas[i] = float(components[2]);
+          clientHealth[i] = int(components[3]);
+          clientID[i] = trim(components[4]);
+          
+          pushMatrix();
+          translate(float(components[0])-15, float(components[1])-15);
+          rotate(radians(float(components[2])));
+          image(tankSprite, -15, -15);
+          popMatrix();
         }
-        
-        clientX[i] = float(components[0]);
-        clientY[i] = float(components[1]);
-        Thetas[i] = float(components[2]);
-        clientID[i] = trim(components[3]);
-        
-        pushMatrix();
-        translate(float(components[0]), float(components[1]));
-        rotate(radians(float(components[2])));
-        image(tankSprite[1+i], -15, -15);
-        popMatrix();
       }
     }
-    String toSend = str(x)+","+str(y)+","+str(rotation)+","+"0"+";";
-  
-    for(int x = 0; x< clientX.length; x++){
-     
-      toSend = toSend+str(clientX[x])+","+str(clientY[x])+","+str(Thetas[x])+","+clientID[x]+";";
-      
-    }
-    
-    println(toSend);
-     //Broadcast the position
-    server.write(toSend+"\n");
-  }
-  
-  void serverEvent(Server server, Client client) {
-    println("A new client has connected: " + client.ip());
-    clientSet.add(client);
   }
     
 }

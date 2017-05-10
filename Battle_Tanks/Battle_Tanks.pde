@@ -53,11 +53,12 @@ import processing.net.*;
 
 int screen = 0;
 localGame gs;
+networkGame nwgs;
 mainMenu menu;
 mapSelect mapSelector;
 host Host;
 user User;
-//lobby l;
+lobby Lobby;
 //gameOver rip;
 
 
@@ -69,6 +70,8 @@ void setup() {
   gs = new localGame();
   menu = new mainMenu();
   mapSelector = new mapSelect();
+  Lobby = new lobby(this);
+  //nwgs = new networkGame(this);
   //Host = new host(this);
   //User = new user(this);
   
@@ -96,8 +99,10 @@ void draw() {
     gs.draw();
   } else if (screen == 2) {
     mapSelector.draw(gs);
-  } else if (screen == 3) {
-    //rip.draw();
+  } else if (screen == 3) { //<>//
+    Lobby.draw();
+  } else if (screen == 4) { //<>//
+    nwgs.draw();
   }
 }
 
@@ -111,7 +116,8 @@ void keyPressed() {
         Passes the key pressed through to the game state, so it can keep track of
         when multiple keys are being pressed at the same time.
   */
-  gs.updateKeys(key, true);
+  if (screen ==1) gs.updateKeys(key, true);
+  else if (screen == 4) nwgs.updateKeys(key, true);
 }
 
 void keyReleased() {
@@ -124,5 +130,17 @@ void keyReleased() {
         Passes the key released through to the game state, so it can keep track of
         when multiple keys are being pressed at the same time.
   */
-  gs.updateKeys(key, false);
+  if (screen ==1) gs.updateKeys(key, false);
+  else if (screen == 4) nwgs.updateKeys(key, false);
+}
+
+public void serverEvent(Server server, Client client) {
+  println("A new client has connected: " + client.ip());
+  Lobby.connectionMade = true;
+  Host.clientSet.add(client);
+}
+// Let's look at this with the client event callback function
+public void clientEvent(Client client) {
+  Lobby.connectionMade = true;
+  User.data = (client.readStringUntil('\n'));
 }
