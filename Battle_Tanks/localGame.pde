@@ -2,7 +2,7 @@
       Function:
         localGame class
       Author:
-        Sam, based on the in class lecture code. updateKeys() by Ben.
+        Sam, based on the in class lecture code. updateKeys()/tankNotMoving() by Ben.
       Description:
         This class is sued to render the game. It creates a map using
         a 2d array. A hash map is used to define the fact that:
@@ -221,6 +221,25 @@ class localGame {
       if (x == tankOneX && y == tankOneY) return false;
       else return true;
     }
+  }
+  
+  boolean tankNotMoving(int playerNumber, int x, int y) {
+    // This function takes an x value, y value, and a playerNumber.
+    // It checks to see whether the other player is currently moving to the
+    // location (x,y). If the tank if moving there, it returns false, indicating
+    // that the space cannot be moved to. If it is not, it returns true, indicating
+    // the player is allowed to move.
+    tank otherTank;
+    if (playerNumber == 1) {
+      otherTank = player2;
+    } else {
+      otherTank = player1;
+    }
+    if (otherTank.state instanceof TankMoving) {
+      int[] nextLoc = otherTank.state.movingTo(otherTank);
+      if (x == nextLoc[0] && y == nextLoc[1]) return false;
+    }
+    return true;
   }
   
   void draw() {
