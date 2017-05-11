@@ -106,6 +106,64 @@ class mapSelect {
       overMapFour = true;
     } else overMapOne = overMapTwo = overMapThree = false;
   }
+  
+  void draw(networkGame game) {
+    background(bg);
+    update();
+    mapOne(game);
+    mapTwo(game);
+    mapThree(game);
+    mapFour(game);
+  }
+  
+  void mapOne(networkGame game) {
+    fill(255);
+    if (overMapOne) {
+      fill(0);
+      if(mousePressed) {
+        game.selectMap(1);
+        screen = 3;
+      }
+    }
+    rect(mapOneX-5, mapOneY-5, mWidth+10, mHeight+10);
+    image(mapOne, mapOneX, mapOneY);
+  }
+  void mapTwo(networkGame game) {
+    fill(255);
+    if (overMapTwo) {
+      fill(0);
+      if(mousePressed) {
+        game.selectMap(2);
+        screen = 3;
+      }
+    }
+    rect(mapTwoX-5, mapTwoY-5, mWidth+10, mHeight+10);
+    image(mapTwo, mapTwoX, mapTwoY);
+  }
+  void mapThree(networkGame game) {
+    fill(255);
+    if (overMapThree) {
+      fill(0);
+      if(mousePressed) {
+        game.selectMap(3);
+        screen = 3;
+      }
+    }
+    rect(mapThreeX-5, mapThreeY-5, mWidth+10, mHeight+10);
+    image(mapThree, mapThreeX, mapThreeY);
+  }
+  void mapFour(networkGame game) {
+    fill(255);
+    if (overMapFour) {
+      fill(0);
+      if(mousePressed) {
+        game.selectMap(4);
+        screen = 3;
+      }
+    }
+    rect(mapFourX-5, mapFourY-5, mWidth+10, mHeight+10);
+    image(mapFour, mapFourX, mapFourY);
+  }
     
     
 }

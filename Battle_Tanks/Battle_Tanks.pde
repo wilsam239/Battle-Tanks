@@ -59,6 +59,7 @@ mapSelect mapSelector;
 host Host;
 user User;
 lobby Lobby;
+boolean local;
 //lobby l;
 //gameOver rip;
 
@@ -94,7 +95,8 @@ void draw() {
   } else if (screen == 1) {
     gs.draw();
   } else if (screen == 2) {
-    mapSelector.draw(gs);
+    if (local) mapSelector.draw(gs);
+    else mapSelector.draw(nwgs);
   } else if (screen == 3) {
     Lobby.draw();
   } else if (screen == 4) {

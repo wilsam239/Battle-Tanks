@@ -41,6 +41,7 @@ class lobby {
         host = true;
         nwgs = new networkGame(true);
         selectionMade = true;
+        screen = 2;
         //delay(100);
       }
     } else {
@@ -55,7 +56,6 @@ class lobby {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
     text("HOST A GAME", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
   }
   void optionTwo() {
@@ -72,7 +72,6 @@ class lobby {
         user = true;
         // Delay the input by 100 milliseconds
         delay(100);
-        screen = 4;
       }
     } else {
        // if the user's mouse is not over the button, display the regular button
@@ -86,7 +85,6 @@ class lobby {
     textAlign(CENTER);
     // Display the text in the middle of the button
     text("FIND A GAME", option2X + buttonSizeWidth/2, option2Y + buttonSizeHeight/1.5);
-    //delay(1000);
   }
   
   void draw() {
@@ -99,8 +97,8 @@ class lobby {
       optionTwo();
     } else if (selectionMade && !connectionMade && host) {
       optionThree();
-    //} else if (selectionMade && connectionMade && user) {
-      //optionFour();
+    } else if (selectionMade && connectionMade && user) {
+      optionFour();
     } else if (selectionMade && connectionMade) {
       optionFive();
     }
@@ -122,7 +120,7 @@ class lobby {
     
   }
   
-  /*void optionFour() {
+  void optionFour() {
     image(regular, option1X, option1Y);
     fill(0);
     textFont(buttonFont);
@@ -131,8 +129,14 @@ class lobby {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Conencted to Server!", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
-  }*/
+    text("CONNECTED TO SERVER!", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    String message[] = new String[2];
+    message = User.data.split(",");
+    nwgs.selectMap(int(message[1]));
+    delay(1000);
+    screen = 4;
+    
+  }
   
   void optionFive() {
     image(regular, option1X, option1Y);
@@ -144,6 +148,7 @@ class lobby {
     textAlign(CENTER);
     // Display the text in the middle of the button
     text("CLIENT CONNECTED", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    Host.server.write("Ready," + nwgs.selectedMap+",\n");
     delay(1000);
     screen = 4;
   }

@@ -55,7 +55,7 @@ class host {
     //String incomingMe = clientSet.get(0).readStringUntil('\n');
     //println(incomingMe);
     //String incomingMessage = incomingMe;
-    if((clientSet.get(0).available() > 0)) {
+    //if((clientSet.get(0).available() > 0)) {
       // We should only proceed if the client is not null
       // Print to Processing message window
       //println("Client says: " + incomingMessage);
@@ -71,11 +71,12 @@ class host {
         
         pushMatrix();
         translate(float(components[0])-15, float(components[1])-15);
+        println(float(components[3]));
         rotate(radians(float(components[3])));
         image(tankSprite, -15, -15);
         popMatrix();
-      } else println("nothing");
-    } else println("Not available");
+      }
+    //}
     String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+";";
     for(int x = 0; x < clientSet.size(); x++){
    

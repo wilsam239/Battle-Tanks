@@ -50,6 +50,7 @@ class mainMenu {
       fill(255);
       if (mousePressed) {
         // If the mouse is pressed change the screen variable to start the game
+        local = true;
         screen = 2;
         delay(100);
       }
@@ -65,7 +66,7 @@ class mainMenu {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Local Multiplayer", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    text("LOCAL MULTIPLAYER", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
   }
   
   void optionTwo() {
@@ -77,6 +78,7 @@ class mainMenu {
       fill(255);
       if (mousePressed) {
         // If the mouse is pressed change the screen variable to start the game
+        local = false;
         screen = 3;
         // Delay the input by 100 milliseconds
         delay(100);
@@ -92,7 +94,7 @@ class mainMenu {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Online Multiplayer", option2X + buttonSizeWidth/2, option2Y + buttonSizeHeight/1.5);
+    text("ONLINE MULTIPLAYER", option2X + buttonSizeWidth/2, option2Y + buttonSizeHeight/1.5);
   }
   
   void optionThree() {
@@ -118,7 +120,7 @@ class mainMenu {
     textAlign(CENTER);
     // Fill the text as black
     // Display the text in the middle of the button
-    text("Quit to Desktop", option3X + buttonSizeWidth/2, option3Y + buttonSizeHeight/1.5);
+    text("QUIT TO DESKTOP", option3X + buttonSizeWidth/2, option3Y + buttonSizeHeight/1.5);
   }
   
   void draw() {

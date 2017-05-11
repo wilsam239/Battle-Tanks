@@ -30,7 +30,7 @@ class user {
           if(!components[3].equals(str(clientID))) {
             pushMatrix();
             translate(float(components[0])-15, float(components[1])-15);
-            rotate(radians(float(components[2])));
+            rotate(radians(float(components[3])));
             image(tankSprite, -15, -15);
             popMatrix();
           }
@@ -38,7 +38,7 @@ class user {
       } 
     }
     
-    String msg = (nwgs.player.x+","+nwgs.player.y+","+nwgs.player.health+","+200+","+clientID+"\n");
+    String msg = (nwgs.player.x+","+nwgs.player.y+","+nwgs.player.health+","+nwgs.player.rotation+","+clientID+"\n");
     //println(components);
     println(msg);
     //println(nwgs.player.x+","+nwgs.player.y+","+nwgs.player.rotation+","+clientID);
