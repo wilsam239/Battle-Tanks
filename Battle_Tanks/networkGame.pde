@@ -130,13 +130,8 @@ class networkGame {
     
     player.draw(this);
      
-    if(isHost) {
-      Host.draw();
-      
-    } else {
-      User.draw();
-      User.client.write(player.x+","+player.y+","+player.rotation+","+player.health+","+User.clientID+"\n");
-    }
+    if(isHost) Host.draw();
+    else User.draw();
       
   }
   

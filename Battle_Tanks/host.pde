@@ -42,6 +42,8 @@ class host {
   }
 
   void draw() {
+    String incomingMessage = clientSet.get(0).readStringUntil('\n');
+    println(incomingMessage);
     float[] clientX = new float[clientSet.size()];
     float[] clientY = new float[clientSet.size()];
     float[] Thetas = new float[clientSet.size()];
@@ -50,37 +52,37 @@ class host {
    
     // If a client is available, we will find out
     // If there is no client, it will be"null"
-    for(int i = 0; i < clientSet.size(); i++) {
-      if((clientSet.get(i).available()>0)) {
-        // We should only proceed if the client is not null
-        String incomingMessage;
-        incomingMessage = clientSet.get(i).readStringUntil('\n'); 
-        // Print to Processing message window
-        //println("Client says: " + incomingMessage);
-        if(incomingMessage!=null){
-           components = incomingMessage.split(",");
-           // X - Y - rotation - health -id
-          clientX[i] = float(components[0]);
-          clientY[i] = float(components[1]);
-          Thetas[i] = float(components[2]);
-          clientHealth[i] = int(components[3]);
-          clientID[i] = trim(components[4]);
-          
-          pushMatrix();
-          translate(float(components[0])-15, float(components[1])-15);
-          rotate(radians(float(components[2])));
-          image(tankSprite, -15, -15);
-          popMatrix();
-        }
-      }
-    }
+    //String incomingMe = clientSet.get(0).readStringUntil('\n');
+    //println(incomingMe);
+    //String incomingMessage = incomingMe;
+    if((clientSet.get(0).available() > 0)) {
+      // We should only proceed if the client is not null
+      // Print to Processing message window
+      //println("Client says: " + incomingMessage);
+      if(incomingMessage!=null){
+        components = incomingMessage.split(",");
+        //println(incomingMessage);
+         // X - Y - health - rotation -id
+        clientX[0] = float(components[0]);
+        clientY[0] = float(components[1]);
+        clientHealth[0] = int(components[2]);
+        Thetas[0] = float(components[3]);
+        clientID[0] = trim(components[4]);
+        
+        pushMatrix();
+        translate(float(components[0])-15, float(components[1])-15);
+        rotate(radians(float(components[3])));
+        image(tankSprite, -15, -15);
+        popMatrix();
+      } else println("nothing");
+    } else println("Not available");
     String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+";";
     for(int x = 0; x < clientSet.size(); x++){
    
-      toSend = toSend+str(clientX[x])+","+str(clientY[x])+","+str(clientHealth[x])+","+str(Thetas[x])+","+clientID[x]+";";
+      toSend = toSend+str(clientX[x])+","+str(clientY[x])+","+str(clientHealth[x])+","+str(Thetas[x])+","+clientID[x];
     
     }
-    println(toSend);
+    //println(toSend);
     Host.server.write(toSend+"\n"); 
   }
     

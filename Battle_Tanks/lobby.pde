@@ -55,7 +55,8 @@ class lobby {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Host A Game", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    text("", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    text("HOST A GAME", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
   }
   void optionTwo() {
     // Button number two
@@ -84,7 +85,7 @@ class lobby {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Join A Game", option2X + buttonSizeWidth/2, option2Y + buttonSizeHeight/1.5);
+    text("FIND A GAME", option2X + buttonSizeWidth/2, option2Y + buttonSizeHeight/1.5);
     //delay(1000);
   }
   
@@ -117,7 +118,7 @@ class lobby {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Awaiting Connection", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    text("SEARCHING FOR CLIENT...", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
     
   }
   
@@ -142,7 +143,7 @@ class lobby {
     // Set the text to align to the centre of it's bounding box
     textAlign(CENTER);
     // Display the text in the middle of the button
-    text("Client Connected!", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
+    text("CLIENT CONNECTED", option1X + buttonSizeWidth/2, option1Y + buttonSizeHeight/1.5);
     delay(1000);
     screen = 4;
   }
