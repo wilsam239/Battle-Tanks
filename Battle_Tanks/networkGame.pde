@@ -60,7 +60,11 @@ class networkGame {
       counter++;
     }
     //tiles.put(2, new WallTile(1));
-    player = new tank(1);
+    if (isHost) {
+      player = new tank(2*Tile.spriteHeight, 2*Tile.spriteHeight, 180);
+    } else {
+      player = new tank(width - Tile.spriteHeight, height-Tile.spriteHeight, 0);
+    }
     components = new String[5];
   
     keys = new boolean[5];
@@ -128,14 +132,7 @@ class networkGame {
      
     if(isHost) {
       Host.draw();
-      String toSend = str(player.x)+","+str(player.y)+","+str(player.health)+","+str(player.rotation)+","+"0"+";";
-      for(int x = 0; x < Host.clientX.length; x++){
-     
-        toSend = toSend+str(Host.clientX[x])+","+str(Host.clientY[x])+","+str(Host.clientHealth[x])+","+str(Host.Thetas[x])+","+Host.clientID[x]+";";
       
-      }
-      println(toSend);
-      Host.server.write(toSend+"\n"); 
     } else {
       User.draw();
       User.client.write(player.x+","+player.y+","+player.rotation+","+player.health+","+User.clientID+"\n");

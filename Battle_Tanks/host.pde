@@ -50,7 +50,7 @@ class host {
    
     // If a client is available, we will find out
     // If there is no client, it will be"null"
-    for(int i = 0; i< clientSet.size(); i++) {
+    for(int i = 0; i < clientSet.size(); i++) {
       if((clientSet.get(i).available()>0)) {
         // We should only proceed if the client is not null
         String incomingMessage;
@@ -74,6 +74,14 @@ class host {
         }
       }
     }
+    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+";";
+    for(int x = 0; x < clientSet.size(); x++){
+   
+      toSend = toSend+str(clientX[x])+","+str(clientY[x])+","+str(clientHealth[x])+","+str(Thetas[x])+","+clientID[x]+";";
+    
+    }
+    println(toSend + "\n");
+    Host.server.write(toSend+"\n"); 
   }
     
 }

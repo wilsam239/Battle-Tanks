@@ -33,7 +33,6 @@ class mainMenu {
     option3Y = option2Y + 3*buttonSizeHeight/2;
     // Loads the background image into the bg variable
     bg = loadImage("assets/screens/TitleScreen2.png");
-    //loadingImg = loadImage("assets/screens/loading.png");
     buttonFont = loadFont("data/Impact-20.vlw");
     regular = loadImage("assets/buttons/regular.png");
     hover = loadImage("assets/buttons/onhover.png");
