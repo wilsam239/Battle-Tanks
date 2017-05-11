@@ -81,7 +81,7 @@ class TankStill implements TankState {
 */
 
 class TankMoving implements TankState {
-  long duration = 100;
+  long duration = 250;
   long whenBegan;
   char direction;
   // Tracks the space on the grid that the tank is moving to.
@@ -118,7 +118,7 @@ class TankMoving implements TankState {
   
   void draw(tank t) {
     long elapsed = millis() - whenBegan;
-    float frac = elapsed / 100.0;
+    float frac = elapsed / 250.0;
     
     int offsetX, offsetY;
     switch(direction) {
@@ -203,7 +203,7 @@ class TankMoving implements TankState {
 */
 
 class TankTurning implements TankState {
-  long duration = 100;
+  long duration = 250;
   long whenBegan;
   char direction;
   
@@ -221,7 +221,7 @@ class TankTurning implements TankState {
   
   void draw(tank t) {
     long elapsed = millis() - whenBegan;
-    float frac = elapsed / 100.0;
+    float frac = elapsed / 250.0;
     
     int offset;
     switch(direction) {
