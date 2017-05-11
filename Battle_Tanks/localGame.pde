@@ -4,12 +4,11 @@
       Author:
         Sam, based on the in class lecture code. updateKeys()/tankNotMoving() by Ben.
       Description:
-        This class is sued to render the game. It creates a map using
+        This class is used to render the game. It creates a map using
         a 2d array. A hash map is used to define the fact that:
-        0 = floor tile, 1 = wall tile.
+        0 = floor tile, 1-15 = wall tile.
         
-        The gameState creates a tank, then draws both the tank and the
-        tiles.
+        It draws the tiles and the tanks
 */
 class localGame {
   // What number maps to what sort of tile. eg 1 -> Floor tile
@@ -107,7 +106,7 @@ class localGame {
     { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
     { 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
   };
-  // The actual map that the game iwll use
+  // The actual map that the game will use
   int[][] gameMap = new int [20][30];
   // Stores the height and width of the map array
   int h = gameMap.length;

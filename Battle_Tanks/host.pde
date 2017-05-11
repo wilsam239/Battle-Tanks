@@ -4,87 +4,97 @@
       Author:
         Sam.
       Description:
-        This class is sued to render the game. It creates a map using
-        a 2d array. A hash map is used to define the fact that:
-        0 = floor tile, 1 = wall tile.
+        This class is used to manage the host's game when playing using
+        network multiplayer mode. It creates a server and writes data
+        to the connected client.
         
-        The gameState creates a tank, then draws both the tank and the
-        tiles.
+        It draws the connected client aswell. In actuality, it wasn't
+        necessary to use arrays (as there is only one client), but the 
+        code I based it off was done using arrays.
 */
 class host {
-
+  
+  // The server
   Server server;
+  
+  // The arraylist of clients
   ArrayList <Client> clientSet;
-  int x, y, health, rotation, oX, oY;
+  
+  // The components that will be sent by the client to the server
   String[] components;
+  
+  // The x value of the client
   float[] clientX;
+  
+  // The y value of the client
   float[] clientY;
+  
+  // The health of the client
   int[] clientHealth;
+  
+  // The rotation of the client
   float[] Thetas;
+  
+  // the ID of the client
   String[] clientID;
+  
+  // The sprite used by the client
   PImage tankSprite;
   
+  // The default constructor, which takes in the PApplet sketch variable (current sketch)
+  // The variable is used to create the server.
   host(PApplet sketch) {
+    
     // Create the Server on port 5204
     server = new Server(sketch, 5204);
+    
+    // Initialise an arrayList
     clientSet = new ArrayList<Client>();
+    
+    // Initialise the array for data in
+    // The order of the data is as follows:
+    // x position > y position > health > rotation > ID
     components = new String[5];
-    /*
-    components[0] = str(width  - Tile.spriteHeight);
-    components[1] = str(height - Tile.spriteHeight);
-    components[2] = str(0);
-    components[3] = str(100);*/
     
-    //tankSprite = new PImage[2];
+    // Load the second tank image so that the other player looks like player 2
     tankSprite = loadImage("assets/tanks/tank2.png");
-    //tankSprite[1] = loadImage("assets/tanks/tank2.png");
-    
   }
 
   void draw() {
+    
+    // Read in the client's string
     String incomingMessage = clientSet.get(0).readStringUntil('\n');
-    println(incomingMessage);
+    
+    // Create arrays based off the size of clientSet (always 1)
     float[] clientX = new float[clientSet.size()];
     float[] clientY = new float[clientSet.size()];
     float[] Thetas = new float[clientSet.size()];
     int[] clientHealth = new int[clientSet.size()];
     String[] clientID = new String[clientSet.size()];
    
-    // If a client is available, we will find out
-    // If there is no client, it will be"null"
-    //String incomingMe = clientSet.get(0).readStringUntil('\n');
-    //println(incomingMe);
-    //String incomingMessage = incomingMe;
-    //if((clientSet.get(0).available() > 0)) {
-      // We should only proceed if the client is not null
-      // Print to Processing message window
-      //println("Client says: " + incomingMessage);
-      if(incomingMessage!=null){
-        components = incomingMessage.split(",");
-        //println(incomingMessage);
-         // X - Y - health - rotation -id
-        clientX[0] = float(components[0]);
-        clientY[0] = float(components[1]);
-        clientHealth[0] = int(components[2]);
-        Thetas[0] = float(components[3]);
-        clientID[0] = trim(components[4]);
-        
-        pushMatrix();
-        translate(float(components[0])-15, float(components[1])-15);
-        println(float(components[3]));
-        rotate(radians(float(components[3])));
-        image(tankSprite, -15, -15);
-        popMatrix();
-      }
-    //}
-    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+";";
-    for(int x = 0; x < clientSet.size(); x++){
-   
-      toSend = toSend+str(clientX[x])+","+str(clientY[x])+","+str(clientHealth[x])+","+str(Thetas[x])+","+clientID[x];
-    
+    // Provided the incoming message was not lost, draw the client
+    if(incomingMessage!=null){
+      
+      // Split the message into the components array
+      components = incomingMessage.split(",");
+      clientX[0] = float(components[0]);
+      clientY[0] = float(components[1]);
+      clientHealth[0] = int(components[2]);
+      Thetas[0] = float(components[3]);
+      clientID[0] = trim(components[4]);
+      
+      // Draw the client
+      pushMatrix();
+      translate(float(components[0])-15, float(components[1])-15);
+      println(float(components[3]));
+      rotate(radians(float(components[3])));
+      image(tankSprite, -15, -15);
+      popMatrix();
     }
-    //println(toSend);
-    Host.server.write(toSend+"\n"); 
-  }
     
+    // Prepare the string to send to the client
+    // Sends the xPos, yPos, health, rotation and ID
+    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+"\n";
+    Host.server.write(toSend); 
+  }
 }

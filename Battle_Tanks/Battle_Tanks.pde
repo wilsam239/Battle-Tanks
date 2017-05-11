@@ -10,7 +10,7 @@ import processing.net.*;
 /*
  # Group 14 Battle Tanks #
  ---------------------------------------
- Version 1.0
+ Version 1.8
  ------------------------------------------
  Authors: 
      Sam Williamson
@@ -32,24 +32,26 @@ import processing.net.*;
        
  ------------------------------------------
  # TODO #
- Multiplayer
  Bullets
- Menus
- Control schemes
+ Header in game
+ Game Over Screen
  ------------------------------------------
 */
  
  
  /********* VARIABLES *********/
 
-// We control which screen is active by setting / updating
-// gameState variable. We display the correct screen according
-// to the value of this variable.
-//
-// 0: Initial Screen
-// 1: Local Multiplayer Screen
-// 2: Multiplayer Lobby
-// 3: Game-Over Screen
+/* We control which screen is active by setting / updating
+   screen variable. We display the correct screen according
+   to the value of this variable.
+  
+        0: Main Menu
+        1: Local Multiplayer
+        2: Map Selector
+        3: Network Lobby
+        4: Network Game
+        
+*/
 
 int screen = 0;
 localGame gs;
@@ -60,8 +62,6 @@ host Host;
 user User;
 lobby Lobby;
 boolean local;
-//lobby l;
-//gameOver rip;
 
 
 void setup() {
@@ -83,10 +83,11 @@ void draw() {
         Sam.
       Description:
         Calls the draw fucntion of other classes based on the screen variable.
-        0: Initial Screen
-        1: Game Screen
+        0: Main Menu
+        1: Local Multiplayer
         2: Map Selector
-        3: Game-Over Screen
+        3: Network Lobby
+        4: Network Game
   */
     
   // See the ehader comment above for each screens value
@@ -132,8 +133,15 @@ void keyReleased() {
   else if (screen == 4) nwgs.updateKeys(key, false);
 }
 
+/* 
+  The following functions are called whenever a serverEvent or clientEvent
+  happens. When they are called a client is added to an arraylist for the
+  server. And data is read by the client.
+  
+  This was based off of the in class lecture code.
+
+*/
 public void serverEvent(Server server, Client client) {
-  println("A new client has connected: " + client.ip());
   Lobby.connectionMade = true;
   Host.clientSet.add(client);
 }

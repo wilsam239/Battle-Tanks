@@ -1,3 +1,16 @@
+/* 
+      Function:
+        networkGame class
+      Author:
+        Sam. updateKeys()/tankNotMoving() by Ben.
+      Description:
+        This class is used to render the netowrk game. It creates a map 
+        using a 2d array. A hash map is used to define the fact that:
+        0 = floor tile, 1-15 = wall tile.
+        
+        It draws the map and the calls the user and hsot classes to draw the tanks
+*/
+
 class networkGame {
   // What number maps to what sort of tile. eg 1 -> Floor tile
   // The hashmap of tile objects, referenced by an integer key called tiles
@@ -94,7 +107,8 @@ class networkGame {
     { 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 14, 0 , 0 , 14 },
     { 3 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 6 , 12, 6 , 6 , 4  }
   };
-  // The actual map that the game iwll use
+  
+  // The actual map that the game will use
   int[][] gameMap = new int [20][30];
   // Stores the height and width of the map array
   int h = gameMap.length;
@@ -103,17 +117,21 @@ class networkGame {
   int set;
   int selectedMap;
   
-  // Each players tank
+  // Creates a tank for the player
   tank player;
+  
+  // Boolean array to store what ekys are pressed
   boolean[] keys;
-  String[] components;
+  // Boolean that determines whether the player is the host
   boolean isHost;
   
   networkGame(boolean hosting) {
+    
+    // The default contructor takes in a boolean value which tells the class
+    // whether the player is hosting or not
     isHost = hosting;
       
-    // Creates a tiles hashamp
-    set = (int)random(1,2.5);
+    // Creates a tiles hashmap
     tiles = new HashMap<Integer, Tile>();
     // Pair the values with the tiles
     // 0 with floor tiles
@@ -126,13 +144,14 @@ class networkGame {
       counter++;
     }
     
+    // Set the players x,y coordinates depending on wther they are hosting or not
     if (isHost) {
       player = new tank(2*Tile.spriteHeight, 2*Tile.spriteHeight, 180);
     } else {
       player = new tank(width - Tile.spriteHeight, height-Tile.spriteHeight, 0);
     }
-    components = new String[5];
-  
+    
+    // Assigns each key in the array to false
     keys = new boolean[5];
     keys[0] = false;
     keys[1] = false;
@@ -174,7 +193,7 @@ class networkGame {
   }
   
   boolean tankNotPresent(int x, int y) {
-    // This function takes an x value, y vale and a playerNumber
+    // This function takes an x value, y vale
     // It checks to see if the other player is in the location x,y
     // If they are, return false meaning that the player cannot progress
     // If they are not, return true meaning that the player can progress
@@ -192,8 +211,6 @@ class networkGame {
       else result = true;
     }
     return result;
-    
-    
   }
   
   boolean isPassable(int x, int y) {
@@ -231,18 +248,18 @@ class networkGame {
   
   void draw() {
     
+    // Draw the map
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
         tiles.get(gameMap[y][x]).draw(x, y);
       }
     }
     
+    // Draw the player
     player.draw(this);
      
+    // Draw the other player
     if(isHost) Host.draw();
     else User.draw();
-      
-  }
-  
-  
+  }  
 }
