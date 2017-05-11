@@ -314,7 +314,21 @@ class tank {
   // Stores what the tank is currently doing
   TankState state;
   
-  // The default contructor
+  // The default contructors
+  tank(int xPos, int yPos, int rotationAmount) {
+    health = 100;
+    numberOfTank = 1;
+    state = new TankStill();
+    x = xPos;
+    y = yPos;
+    rotation = rotationAmount;
+    tankSprite = loadImage("assets/tanks/tank1.png");
+    // Set the oX position to be the x position divided by the height of the tile
+    oX = x/Tile.spriteHeight - 1;
+    // Set the oY position of the y position divided by the height of the tile
+    oY = y/Tile.spriteHeight - 1;
+  }
+  
   tank(int playerNumber) {
     // Set the health of the tank to be 100
     health = 100;
@@ -365,27 +379,6 @@ class tank {
     }
     
     state.draw(this);
-    
-    /*
-    // Push the current coordinate system to the stack
-    pushMatrix();
-    // Translate to the centre of the shape
-    translate(x-tWidth/2,y-tHeight/2);
-    // Rotate the current system around the new origin by the rotation amount of the tank
-    rotate(radians(rotation));
-    // Set a white stroke
-    stroke(255);
-    // Render the tankSprite to the center of the screen
-    image(tankSprite, -tWidth/2, -tHeight/2);
-    // Render the healthbar of the tank
-    fill(0);
-    rect(-tWidth, -tHeight, 2*tWidth,10);
-    fill(255,0,0);
-    healthPercentage = (2*tWidth/100.0) * health;
-    rect(-tWidth, -tHeight, int(healthPercentage), 10);
-    // Restore the previous coordinate system
-    popMatrix();
-    */
   }
   
   void checkMovement(localGame game) {
@@ -405,57 +398,6 @@ class tank {
       if (game.keys[9]) firestate = true;
     }
   }
-  
-/*  void keyWasPressed(char key, localGame game) {
-    // Called when a key was pressed
-    // Switch statement that calls the updatePos function based on the input
-    // and the player number
-    if (numberOfTank == 1) {
-      switch(key) {
-        case 'W':
-        case 'w':
-          updatePos("Forward", game);
-          break;
-        case 'A':
-        case 'a':
-          updatePos("Left", game);
-          break;
-        case 'S':
-        case 's':
-          updatePos("Backward", game);
-          break;
-        case 'D':
-        case 'd':
-          updatePos("Right", game);
-          break;
-        case 'f':
-          firestate = true;
-      }
-    } else if (numberOfTank == 2) {
-      switch(key) {
-        case 'I':
-        case 'i':
-          updatePos("Forward", game);
-          break;
-        case 'J':
-        case 'j':
-          updatePos("Left", game);
-          break;
-        case 'K':
-        case 'k':
-          updatePos("Backward", game);
-          break;
-        case 'L':
-        case 'l':
-          updatePos("Right", game);
-          break;
-        /*case ';':
-        case ':':
-          delay(100);
-        *
-      }
-    }
-  }*/
   
   void updatePos(String dir, localGame game) {
     // Stores the next tiles based on the direction of the player
@@ -546,26 +488,112 @@ class tank {
     }
   }
   
-  /* void rotateTank(boolean clockwise) {
-    // Rotate the tank either clockwise or anti-clockwise
-    if (clockwise) {
-      // If the player needs to rotate clockwise
-      // Add 90 to the rotation variable, unless it equals 270
-      // If the rotation variable = 270, set it to 0, because we have come full circle
-      if (rotation == 270) rotation = 0;
-      else rotation += 90;      
-    } else {
-      // If the player needs to rotate anti-clockwise
-      // Subtract 90 from the rotation variable, unless it equals 90 or 0
-      // If the rotation variable = 90, set it to 0, because we have come full circle
-      // If the rotation variable = 0, set it to 270, because we are going in the
-      // reverse direction now
-      if (rotation == 90) rotation = 0;
-      else if (rotation == 0) rotation = 270;
-      else rotation -= 90;
+  /* The network methods of the tank class */
+  void draw(networkGame game) {
+    // The draw function, which recevies the gameState as passed in by the gameState class
+    // If a key had been pressed call the keyWasPressed function and pass the key and
+    // gameState in
+    
+    if (state instanceof TankStill) {
+      /* if(keyPressed) keyWasPressed(key, game); */
+      checkMovement(game);
+    } else if (state instanceof TankMoving && state.isFinished()) {
+      state.onComplete(this);
+      state = new TankStill();
+    } else if (state instanceof TankTurning && state.isFinished()) {
+      state.onComplete(this);
+      state = new TankStill();
+    }
+    
+    state.draw(this);
+  }
+  
+  void checkMovement(networkGame game) {
+    // Checks if a key is currently being pressed, and calls the updatePos
+    // function based on the keys that are held down and the player number
+    if (game.keys[0]) updatePos("Forward", game);
+    if (game.keys[1]) updatePos("Left", game);
+    if (game.keys[2]) updatePos("Backward", game);
+    if (game.keys[3]) updatePos("Right", game);
+    if (game.keys[4]) firestate = true;
+  }
+  
+  void updatePos(String dir, networkGame game) {
+    // Stores the next tiles based on the direction of the player
+    int nextTileX;
+    int nextTileY;
+    
+    // If the direction the player wants to move is right, rotate the tank clockwise
+    if (dir == "Right") state = new TankTurning('R'); //rotateTank(true);
+    // If the direction the player wants to move is left, rotate the tank anti-clockwise 
+    else if (dir == "Left") state = new TankTurning('L'); //rotateTank(false);
+    // If the direction the player wants to go is forward
+    else if (dir == "Forward" || dir == "Backward") {
+      // Switch statement that moves the player depending on their rotation
+      int directionValue;
+      if (dir == "Forward") directionValue = 1;
+      else directionValue = -1;
+      switch(rotation) {
+        // If the player is facing Right
+        case 90:
+        case -90:
+          // Set the next tile variables
+          nextTileX = oX + directionValue;
+          nextTileY = oY;
+          // If the next tile is passable, move the player right
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY)) {
+            if (directionValue > 0) state = new TankMoving('E');
+            else state = new TankMoving('W');
+            /*x += Tile.spriteHeight * directionValue;
+            oX += directionValue;*/
+          }
+          break;
+        // If the player is facing Down
+        case 180:
+        case -180:
+          // Set the next tile variables
+          nextTileX = oX;
+          nextTileY = oY + directionValue;
+          // If the next tile is passable, move the player down
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY)) {
+            if (directionValue > 0) state = new TankMoving('S');
+            else state = new TankMoving('N');
+            /*y += Tile.spriteHeight * directionValue;
+            oY += directionValue;*/
+          }
+          break;
+        // If the player is facing Left
+        case 270:
+        case -270:
+          // Set the next tile variables
+          nextTileX = oX - directionValue;
+          nextTileY = oY;
+          // If the next tile is passable, move the player left
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY)) {
+            if (directionValue > 0) state = new TankMoving('W');
+            else state = new TankMoving('E');
+            /*x -= Tile.spriteHeight * directionValue;;
+            oX -= directionValue;*/
+          }
+          break;
+        // If the player is facing Up
+        case 0:
+          nextTileX = oX;
+          nextTileY = oY - directionValue;
+          if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY)) {
+            if (directionValue > 0) state = new TankMoving('N');
+            else state = new TankMoving('S');
+            /*y -= Tile.spriteHeight * directionValue;
+            oY -= directionValue;*/
+          }
+          break;
+        // If none of the directions above are the direction, throw an error
+        default:
+          throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
+      }
     }
   }
-  */
+  
 }
 
 class bullet{
