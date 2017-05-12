@@ -599,20 +599,26 @@ class tank {
 class bullet{
   int lRect = 3;
   int wRect = 4;
-  int bX, oX, y, oY, bRotation;
+  boolean bPlayer1, bPlayer2;
+  int bX, boX, bY, boY, bRotation;
   // default Constructor
   bullet(tank player){
-    if (player.numberOfTank == 1){
+    if (player.numberOfTank == 1 && bPlayer1 == false){
       bX = player.x;
       bRotation = player.rotation;
+      bPlayer1 = true;
       
-    } else if (player.numberOfTank == 2){
+    } else if (player.numberOfTank == 2 && bPlayer2 == false){
       bX = player.x;
       bRotation = player.rotation;
-    }
-    
+      bPlayer2 = true;
+      bY = player.y;
+      rect(bX, bY, lRect, wRect);
+    }    
   }
-  void updatePos(String dir){
+  void updatePos(String dir, localGame game){
+    int nextTileX;
+    int nextTileY;
  
   }
 }
