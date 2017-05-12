@@ -312,6 +312,7 @@ class tank {
   PImage tankSprite;
   int numberOfTank;
   boolean firestate;
+  bullet b;
   // Stores what the tank is currently doing
   TankState state;
   
@@ -392,7 +393,7 @@ class tank {
       if (game.keys[1]) updatePos("Left", game);
       if (game.keys[2]) updatePos("Backward", game);
       if (game.keys[3]) updatePos("Right", game);
-      if (game.keys[4]) ;
+      if (game.keys[4]) new bullet(localGame.player1);
     } else if (numberOfTank == 2) {
       if (game.keys[5]) updatePos("Forward", game);
       if (game.keys[6]) updatePos("Left", game);
@@ -606,6 +607,8 @@ class bullet{
   int lRect = 3;
   int wRect = 4;
   boolean bPlayer1, bPlayer2;
+  bPlayer1 = false;
+  bPlayer2 = false;
   int bX, boX, bY, boY, bRotation;
   // default Constructor
   bullet(tank player){
@@ -632,7 +635,8 @@ class bullet{
         bY = player.y - Tile.spriteHeight/2;
         boY = player.oY;
       } else {
-        throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down")
+        throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
+      }
       bPlayer1 = true;
       
     } else if (player.numberOfTank == 2 && bPlayer2 == false){
