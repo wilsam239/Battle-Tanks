@@ -113,7 +113,7 @@ class networkGame {
   // Stores the height and width of the map array
   int h = gameMap.length;
   int w = gameMap[0].length;
-  // Stores the randomly generated number that tells the map to laod a certain set of tiles
+  // Stores the randomly generated number that tells the map to load a certain set of tiles
   int set;
   int selectedMap;
   int player1Health, player2Health;
@@ -121,7 +121,7 @@ class networkGame {
   // Creates a tank for the player
   tank player;
   
-  // Boolean array to store what ekys are pressed
+  // Boolean array to store what keys are pressed
   boolean[] keys;
   // Boolean that determines whether the player is the host
   boolean isHost;
