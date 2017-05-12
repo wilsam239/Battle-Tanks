@@ -61,15 +61,14 @@ mapSelect mapSelector;
 host Host;
 user User;
 lobby Lobby;
+gameOver GameOver;
 boolean local;
-
 
 void setup() {
   // Create a window of size 600x600
   size(900,600);
   surface.setTitle("Group 14 Battle Tanks");
   // initialise classes
-  gs = new localGame();
   menu = new mainMenu();
   mapSelector = new mapSelect();
   Lobby = new lobby(this);
@@ -88,6 +87,7 @@ void draw() {
         2: Map Selector
         3: Network Lobby
         4: Network Game
+        5: Game Over
   */
     
   // See the ehader comment above for each screens value
@@ -102,6 +102,8 @@ void draw() {
     Lobby.draw();
   } else if (screen == 4) {
     nwgs.draw();
+  } else if (screen == 5) {
+    GameOver.draw();
   }
 }
 

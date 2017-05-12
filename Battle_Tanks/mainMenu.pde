@@ -50,6 +50,7 @@ class mainMenu {
       fill(255);
       if (mousePressed) {
         // If the mouse is pressed change the screen variable to start the game
+        gs = new localGame();
         local = true;
         screen = 2;
         delay(100);

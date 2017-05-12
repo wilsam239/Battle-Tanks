@@ -113,6 +113,7 @@ class localGame {
   int w = gameMap[0].length;
   // Stores the randomly generated number that tells the map to laod a certain set of tiles
   int set;
+  header Header;
   // Each players tank
   tank player1;
   tank player2;
@@ -120,6 +121,8 @@ class localGame {
   boolean[] keys;
   
   localGame() {
+    
+    Header = new header();
     // Creates a tiles hashamp
     set = (int)random(1,2.5);
     tiles = new HashMap<Integer, Tile>();
@@ -251,9 +254,15 @@ class localGame {
       }
     }
     // draw the tanks
-    player1.draw(this);
-    player2.draw(this);
-    header();
+    if (player1.health <= 0 || player2.health <= 0) {
+      if (player1.health <= 0) GameOver = new gameOver(2);
+      else if (player2.health <= 0) GameOver = new gameOver(1);
+      screen = 5;
+    } else {
+      player1.draw(this);
+      player2.draw(this);
+      Header.draw(player1, player2);
+    }
   }
   
   void selectMap(int mapNumber) {
@@ -285,9 +294,5 @@ class localGame {
         }
       }
     }
-  }
-  
-  void header() {
-    
   }
 }

@@ -80,6 +80,7 @@ class host {
       clientX[0] = float(components[0]);
       clientY[0] = float(components[1]);
       clientHealth[0] = int(components[2]);
+      nwgs.player2Health = int(components[2]);
       Thetas[0] = float(components[3]);
       clientID[0] = trim(components[4]);
       

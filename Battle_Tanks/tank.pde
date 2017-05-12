@@ -304,6 +304,7 @@ class tank {
   // Stores the x,y coords and the health of the tank, aswell as the
   // rotation, and x,y coords in relation to the map array
   int x, y, health, rotation, oX, oY;
+  int score;
   //  Stores the height and width of the tank
   int tHeight = 30;
   int tWidth = 30;
@@ -316,6 +317,7 @@ class tank {
   
   // The default contructors
   tank(int xPos, int yPos, int rotationAmount) {
+    score = 0;
     health = 100;
     numberOfTank = 1;
     state = new TankStill();
@@ -332,6 +334,7 @@ class tank {
   tank(int playerNumber) {
     // Set the health of the tank to be 100
     health = 100;
+    score = 0;
     numberOfTank = playerNumber;
     state = new TankStill();
     if (playerNumber == 1) { 
@@ -488,6 +491,9 @@ class tank {
     }
   }
   
+  int getScore() {
+    return score;
+  }
   /* The network methods of the tank class */
   void draw(networkGame game) {
     // The draw function, which recevies the gameState as passed in by the gameState class

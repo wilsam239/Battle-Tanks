@@ -116,6 +116,7 @@ class networkGame {
   // Stores the randomly generated number that tells the map to laod a certain set of tiles
   int set;
   int selectedMap;
+  int player1Health, player2Health;
   
   // Creates a tank for the player
   tank player;
@@ -130,6 +131,8 @@ class networkGame {
     // The default contructor takes in a boolean value which tells the class
     // whether the player is hosting or not
     isHost = hosting;
+    
+    player1Health = player2Health = 100;
       
     // Creates a tiles hashmap
     tiles = new HashMap<Integer, Tile>();
@@ -247,19 +250,25 @@ class networkGame {
   }
   
   void draw() {
-    
-    // Draw the map
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        tiles.get(gameMap[y][x]).draw(x, y);
+    if (player1Health <= 0 || player2Health <= 0) {
+      if (player1Health <= 0) GameOver = new gameOver(2);
+      else if (player2Health <= 0) GameOver = new gameOver(1);
+      screen = 5;
+    } else {
+      // Draw the map
+      for (int x = 0; x < w; x++) {
+        for (int y = 0; y < h; y++) {
+          tiles.get(gameMap[y][x]).draw(x, y);
+        }
       }
-    }
-    
-    // Draw the player
-    player.draw(this);
+      
+      // Draw the player
+      //player1Health = player.health;
+      player.draw(this);
      
-    // Draw the other player
-    if(isHost) Host.draw();
-    else User.draw();
+      // Draw the other player
+      if(isHost) Host.draw();
+      else User.draw();
+    }
   }  
 }

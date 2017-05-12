@@ -31,6 +31,7 @@ class user {
     
     if(data!=null) {
         components = data.split(",");
+        nwgs.player2Health = int(components[2]);
         pushMatrix();
         translate(float(components[0])-15, float(components[1])-15);
         rotate(radians(float(components[3])));
