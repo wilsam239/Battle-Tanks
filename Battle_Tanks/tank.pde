@@ -606,6 +606,7 @@ class tank {
 class bullet{
   int bL;
   int bW;
+  int playerNumber = 0;
   Boolean bPlayer1 = false;
   Boolean bPlayer2 = false;
   boolean alive = true;
@@ -614,6 +615,7 @@ class bullet{
   bullet(tank player){
     if (player.numberOfTank == 1 && bPlayer1 == false){
       bRotation = player.rotation;
+      playerNumber = 1;
       if (bRotation == 180 || bRotation == -180){
         bX = player.x - 17;
         boX = player.oX;
@@ -648,6 +650,7 @@ class bullet{
       bPlayer1 = true;
     } else if (player.numberOfTank == 2 && bPlayer2 == false){
        bRotation = player.rotation;
+       playerNumber = 2;
       if (bRotation == 180 || bRotation == -180){
         bX = player.x - 17;
         boX = player.oX;
@@ -687,8 +690,6 @@ class bullet{
     int nextTileX;
     int nextTileY;
     int nextTileInt = 0;
-    int startTileY = bullet.boY;
-    int startTileX = bullet.boX;
     if (bullet.bRotation == 270 || bullet.bRotation == -270 || bullet.bRotation == 0){
       dirVal = -30; 
       nextTileInt = -1;
@@ -699,22 +700,36 @@ class bullet{
     if (bullet.bRotation == 90 || bullet.bRotation == -90 || bullet.bRotation == 270 || bullet.bRotation == -270){
       nextTileX = bullet.boX + nextTileInt;
       nextTileY = bullet.boY;
-      if (game.isPassable(nextTileX, nextTileY)){
+      if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber)){
         bullet.boX = nextTileX;
         bullet.bX = bullet.bX + dirVal;
+      } else if (game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber) == false) {
+        if (bullet.playerNumber == 1){
+          game.player2.health = game.player2.health - 20;
+        } else if (bullet.playerNumber == 2){
+          game.player1.health = game.player1.health - 20;
+        }
+        bullet.alive = false;
       } else {
         bullet.alive = false;
-      }
+    }
     } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
       nextTileY = bullet.boY + nextTileInt;
       nextTileX = bullet.boX;
-      if (game.isPassable(nextTileX, nextTileY)){
+      if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber)){
         bullet.boY = nextTileY;
         bullet.bY = bullet.bY + dirVal;
+      } else if (game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber) == false) {
+        if (bullet.playerNumber == 1){
+          game.player2.health = game.player2.health - 20;
+        } else if (bullet.playerNumber == 2){
+          game.player1.health = game.player1.health - 20;
+        }
+        bullet.alive = false;
       } else {
         bullet.alive = false;
-      }
     }
+  }
   }
   
   void draw(localGame game){
