@@ -261,6 +261,11 @@ class localGame {
       if (player1.health <= 0) GameOver = new gameOver(2);
       else if (player2.health <= 0) GameOver = new gameOver(1);
       screen = 5;
+      
+      //Stop the game music, and start the menu music again.
+      gamePlayer.pause();
+      menuPlayer.rewind();
+      menuPlayer.loop();
     } else {
       player1.draw(this);
       player2.draw(this);

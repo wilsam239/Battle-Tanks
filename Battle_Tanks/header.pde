@@ -66,6 +66,9 @@ class header {
         else if (gs.player2.getScore() > gs.player1.getScore()) GameOver = new gameOver(2);
         else GameOver = new gameOver(3);
         gs = null;
+        gamePlayer.pause();
+        menuPlayer.rewind();
+        menuPlayer.loop();
       }
     } else {
       image(regular, xPos, yPos);

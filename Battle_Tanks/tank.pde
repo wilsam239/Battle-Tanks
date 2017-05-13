@@ -393,13 +393,21 @@ class tank {
       if (game.keys[1]) updatePos("Left", game);
       if (game.keys[2]) updatePos("Backward", game);
       if (game.keys[3]) updatePos("Right", game);
-      if (game.keys[4]) if (game.bPlayer1 == null || game.bPlayer1.alive == false) game.bPlayer1 = new bullet(this);
+      if (game.keys[4]) if (game.bPlayer1 == null || game.bPlayer1.alive == false) { 
+        game.bPlayer1 = new bullet(this);
+        firePlayer.rewind();
+        firePlayer.play();
+      }
     } else if (numberOfTank == 2) {
       if (game.keys[5]) updatePos("Forward", game);
       if (game.keys[6]) updatePos("Left", game);
       if (game.keys[7]) updatePos("Backward", game);
       if (game.keys[8]) updatePos("Right", game);
-      if (game.keys[9]) if (game.bPlayer2 == null || game.bPlayer2.alive == false) game.bPlayer2 = new bullet(this);
+      if (game.keys[9]) if (game.bPlayer2 == null || game.bPlayer2.alive == false) {
+        game.bPlayer2 = new bullet(this);
+        firePlayer.rewind();
+        firePlayer.play();
+      }
     }
   }
   
@@ -721,8 +729,12 @@ class bullet{
           game.player1.health = game.player1.health - 20;
         }
         bullet.alive = false;
+        boomPlayer.rewind();
+        boomPlayer.play();
       } else {
         bullet.alive = false;
+        boomPlayer.rewind();
+        boomPlayer.play();
     }
     } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
       nextTileY = bullet.boY + nextTileInt;
@@ -737,15 +749,18 @@ class bullet{
           game.player1.health = game.player1.health - 20;
         }
         bullet.alive = false;
+        boomPlayer.rewind();
+        boomPlayer.play();
       } else {
         bullet.alive = false;
+        boomPlayer.rewind();
+        boomPlayer.play();
     }
   }
   }
   
   void draw(localGame game){
     rect(bX, bY, bL, bW);
-    rect(boX, boY, bL,bW);
   }
   
   void draw(networkGame game){

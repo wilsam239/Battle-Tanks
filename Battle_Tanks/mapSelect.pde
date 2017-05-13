@@ -71,6 +71,9 @@ class mapSelect {
       if(mousePressed) {
         game.selectMap(1);
         screen = 1;
+        menuPlayer.pause();
+        gamePlayer.rewind();
+        gamePlayer.loop();
       }
     }
     rect(mapOneX-5, mapOneY-5, mWidth+10, mHeight+10);
@@ -85,6 +88,9 @@ class mapSelect {
       if(mousePressed) {
         game.selectMap(2);
         screen = 1;
+        menuPlayer.pause();
+        gamePlayer.rewind();
+        gamePlayer.loop();
       }
     }
     rect(mapTwoX-5, mapTwoY-5, mWidth+10, mHeight+10);
@@ -99,6 +105,9 @@ class mapSelect {
       if(mousePressed) {
         game.selectMap(3);
         screen = 1;
+        menuPlayer.pause();
+        gamePlayer.rewind();
+        gamePlayer.loop();
       }
     }
     rect(mapThreeX-5, mapThreeY-5, mWidth+10, mHeight+10);
@@ -113,6 +122,9 @@ class mapSelect {
       if(mousePressed) {
         game.selectMap(4);
         screen = 1;
+        menuPlayer.pause();
+        gamePlayer.rewind();
+        gamePlayer.loop();
       }
     }
     rect(mapFourX-5, mapFourY-5, mWidth+10, mHeight+10);
