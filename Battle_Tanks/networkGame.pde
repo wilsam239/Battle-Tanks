@@ -263,6 +263,13 @@ class networkGame {
       if (player1Health <= 0) GameOver = new gameOver(2);
       else if (player2Health <= 0) GameOver = new gameOver(1);
       screen = 5;
+      
+      //Stop the game music, and start the menu music again.
+      if (soundOn) {
+        gamePlayer.pause();
+        menuPlayer.rewind();
+        menuPlayer.loop();
+      }
     } else {
       // Draw the map
       for (int x = 0; x < w; x++) {
