@@ -64,6 +64,11 @@ lobby Lobby;
 gameOver GameOver;
 boolean local;
 
+Minim minim;
+AudioPlayer firePlayer;
+AudioPlayer boomPlayer;
+AudioPlayer menuPlayer;
+
 void setup() {
   // Create a window of size 600x600
   size(900,600);
@@ -72,6 +77,12 @@ void setup() {
   menu = new mainMenu();
   mapSelector = new mapSelect();
   Lobby = new lobby(this);
+  
+  minim = new Minim(this);
+  firePlayer = minim.loadFile("assets/sounds/tankfire.mp3");
+  boomPlayer = minim.loadFile("assets/sounds/explosion.mp3");
+  menuPlayer = minim.loadFile("assets/sounds/mainMenu.mp3");
+  menuPlayer.loop();
 }
 
 void draw() {
