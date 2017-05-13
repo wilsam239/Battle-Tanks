@@ -51,9 +51,15 @@ class gameOver {
     // FIll black and siaply winner label
     fill(0);
     image(label, labelX, labelY);
-    String labelText = "PLAYER " + str(winningPlayer) + " WON!";
     textFont(labelFont);
     textSize(25);
+    String labelText = "null";
+    if (winningPlayer > 2) {
+      labelText = "IT'S A DRAW!";
+    } else {
+      labelText = "PLAYER " + str(winningPlayer) + " WON!";  
+    }
+    
     text(labelText, labelX + labelWidth/2, labelY + labelHeight/1.5);
     // draw the buttons
     buttonOne();

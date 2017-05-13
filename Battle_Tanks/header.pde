@@ -62,6 +62,9 @@ class header {
       fill(255);
       if(mousePressed) {
         screen = 5;
+        if (gs.player1.getScore() > gs.player2.getScore()) GameOver = new gameOver(1);
+        else if (gs.player2.getScore() > gs.player1.getScore()) GameOver = new gameOver(2);
+        else GameOver = new gameOver(3);
         gs = null;
       }
     } else {
