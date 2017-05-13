@@ -761,6 +761,5 @@ class bullet{
   
   void draw(localGame game){
     rect(bX, bY, bL, bW);
-    rect(boX, boY, bL,bW);
   }
 }
