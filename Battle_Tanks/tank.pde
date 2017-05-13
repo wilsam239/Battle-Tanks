@@ -395,8 +395,10 @@ class tank {
       if (game.keys[3]) updatePos("Right", game);
       if (game.keys[4]) if (game.bPlayer1 == null || game.bPlayer1.alive == false) { 
         game.bPlayer1 = new bullet(this);
-        firePlayer.rewind();
-        firePlayer.play();
+        if (soundOn) {
+          firePlayer.rewind();
+          firePlayer.play();
+        }
       }
     } else if (numberOfTank == 2) {
       if (game.keys[5]) updatePos("Forward", game);
@@ -405,8 +407,10 @@ class tank {
       if (game.keys[8]) updatePos("Right", game);
       if (game.keys[9]) if (game.bPlayer2 == null || game.bPlayer2.alive == false) {
         game.bPlayer2 = new bullet(this);
-        firePlayer.rewind();
-        firePlayer.play();
+        if (soundOn) {
+          firePlayer.rewind();
+          firePlayer.play();
+        }
       }
     }
   }
@@ -729,12 +733,16 @@ class bullet{
           game.player1.health = game.player1.health - 20;
         }
         bullet.alive = false;
-        boomPlayer.rewind();
-        boomPlayer.play();
+        if (soundOn) {
+          boomPlayer.rewind();
+          boomPlayer.play();
+        }
       } else {
         bullet.alive = false;
-        boomPlayer.rewind();
-        boomPlayer.play();
+        if (soundOn) {
+          boomPlayer.rewind();
+          boomPlayer.play();
+        }
     }
     } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
       nextTileY = bullet.boY + nextTileInt;
@@ -749,12 +757,16 @@ class bullet{
           game.player1.health = game.player1.health - 20;
         }
         bullet.alive = false;
-        boomPlayer.rewind();
-        boomPlayer.play();
+        if (soundOn) {
+          boomPlayer.rewind();
+          boomPlayer.play();
+        }
       } else {
         bullet.alive = false;
-        boomPlayer.rewind();
-        boomPlayer.play();
+        if (soundOn) {
+          boomPlayer.rewind();
+          boomPlayer.play();
+        }
     }
   }
   }
