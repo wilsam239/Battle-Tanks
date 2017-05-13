@@ -522,7 +522,7 @@ class tank {
     if (game.keys[1]) updatePos("Left", game);
     if (game.keys[2]) updatePos("Backward", game);
     if (game.keys[3]) updatePos("Right", game);
-    if (game.keys[4]) firestate = true;
+    if (game.keys[4]) if (game.bulPlayer == null || game.bulPlayer.alive == false) game.bulPlayer = new bullet(this);
   }
   
   void updatePos(String dir, networkGame game) {

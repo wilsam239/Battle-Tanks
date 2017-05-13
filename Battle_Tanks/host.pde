@@ -95,7 +95,7 @@ class host {
     
     // Prepare the string to send to the client
     // Sends the xPos, yPos, health, rotation and ID
-    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+"\n";
+    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+str(nwgs.bulPlayer.bX)+","+"0"+"\n";
     Host.server.write(toSend); 
   }
 }
