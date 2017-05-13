@@ -69,6 +69,7 @@ AudioPlayer firePlayer;
 AudioPlayer boomPlayer;
 AudioPlayer menuPlayer;
 AudioPlayer gamePlayer;
+boolean soundOn;
 
 void setup() {
   // Create a window of size 600x600
@@ -84,6 +85,7 @@ void setup() {
   boomPlayer = minim.loadFile("assets/sounds/explosion.mp3");
   menuPlayer = minim.loadFile("assets/sounds/mainMenu.mp3");    // Theme of "The Great Escape" by Elmer Bernstein.
   gamePlayer = minim.loadFile("assets/sounds/inGame.mp3");      // "Track 2" from Shellshock Live.
+  soundOn = true;
   menuPlayer.loop();
 }
 
@@ -146,6 +148,29 @@ void keyReleased() {
   */
   if (screen ==1) gs.updateKeys(key, false);
   else if (screen == 4) nwgs.updateKeys(key, false);
+  if (key == 'm') mute();
+}
+
+void mute() {
+  /* 
+      Function:
+        mute function
+      Author:
+        Ben.
+      Description:
+        If sound is currently on, this function pauses the song currently playing and
+        stops new sounds from starting. If sound is currently off, this function starts
+        whatever background music should be playing, and allows sounds to play.
+  */
+  if (soundOn) {
+    soundOn = false;
+    if (screen == 1 || screen == 4) gamePlayer.pause();
+    else menuPlayer.pause();
+  } else {
+    soundOn = true;
+    if (screen == 1 || screen == 4) gamePlayer.loop();
+    else menuPlayer.loop();
+  }
 }
 
 /* 
