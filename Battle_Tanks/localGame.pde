@@ -267,7 +267,9 @@ class localGame {
       Header.draw(player1, player2);
     }
     if (bPlayer1 != null && bPlayer1.alive == true) bPlayer1.draw(this);
+    if (bPlayer1 != null && bPlayer1.alive == true) bPlayer1.updatePos(bPlayer1, this);
     if (bPlayer2 != null && bPlayer2.alive == true) bPlayer2.draw(this);
+    if (bPlayer2 != null && bPlayer2.alive == true) bPlayer2.updatePos(bPlayer2, this);
   }
   
   void selectMap(int mapNumber) {

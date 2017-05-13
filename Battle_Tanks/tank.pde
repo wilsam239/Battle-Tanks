@@ -682,10 +682,23 @@ class bullet{
       bPlayer2 = true;
     }    
   }
-  void updatePos(String dir, localGame game){
+  void updatePos(bullet bullet, localGame game){
+    int dirVal = 0;
     int nextTileX;
     int nextTileY;
- 
+    int startTileY = bullet.boY;
+    int startTileX = bullet.boX;
+    rect (startTileY, startTileY, 3, 4);
+    if (bullet.bRotation == 270 || bullet.bRotation == -270 || bullet.bRotation == 0){
+      dirVal = -3;
+    } else if (bullet.bRotation == 90 ||bullet.bRotation == -90 || bullet.bRotation == 180 || bullet.bRotation == -180){
+      dirVal = +3;
+    }
+    if (bullet.bRotation == 90 || bullet.bRotation == -90 || bullet.bRotation == 270 || bullet.bRotation == -270){
+      bullet.bX = bullet.bX + dirVal;
+    } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
+      bullet.bY = bullet.bY + dirVal;
+    }
   }
   
   void draw(localGame game){
