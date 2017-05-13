@@ -68,6 +68,7 @@ Minim minim;
 AudioPlayer firePlayer;
 AudioPlayer boomPlayer;
 AudioPlayer menuPlayer;
+AudioPlayer gamePlayer;
 
 void setup() {
   // Create a window of size 600x600
@@ -81,7 +82,8 @@ void setup() {
   minim = new Minim(this);
   firePlayer = minim.loadFile("assets/sounds/tankfire.mp3");
   boomPlayer = minim.loadFile("assets/sounds/explosion.mp3");
-  menuPlayer = minim.loadFile("assets/sounds/mainMenu.mp3");
+  menuPlayer = minim.loadFile("assets/sounds/mainMenu.mp3");    // Theme of "The Great Escape" by Elmer Bernstein.
+  gamePlayer = minim.loadFile("assets/sounds/inGame.mp3");      // "Track 2" from Shellshock Live.
   menuPlayer.loop();
 }
 
