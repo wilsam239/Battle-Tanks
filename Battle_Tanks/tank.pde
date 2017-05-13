@@ -312,7 +312,7 @@ class tank {
   PImage tankSprite;
   int numberOfTank;
   boolean firestate;
-  bullet b;
+  //bullet b = null;
   // Stores what the tank is currently doing
   TankState state;
   
@@ -393,13 +393,13 @@ class tank {
       if (game.keys[1]) updatePos("Left", game);
       if (game.keys[2]) updatePos("Backward", game);
       if (game.keys[3]) updatePos("Right", game);
-      if (game.keys[4]) game.bPlayer1 = new bullet(this);
+      if (game.keys[4]) if (game.bPlayer1 == null || game.bPlayer1.alive == false) game.bPlayer1 = new bullet(this);
     } else if (numberOfTank == 2) {
       if (game.keys[5]) updatePos("Forward", game);
       if (game.keys[6]) updatePos("Left", game);
       if (game.keys[7]) updatePos("Backward", game);
       if (game.keys[8]) updatePos("Right", game);
-      if (game.keys[9]) game.bPlayer2 = new bullet(this);
+      if (game.keys[9]) if (game.bPlayer2 == null || game.bPlayer2.alive == false) game.bPlayer2 = new bullet(this);
     }
   }
   
@@ -608,6 +608,7 @@ class bullet{
   int bW;
   Boolean bPlayer1 = false;
   Boolean bPlayer2 = false;
+  boolean alive = true;
   int bX, boX, bY, boY, bRotation;
   // default Constructor
   bullet(tank player){
@@ -688,6 +689,6 @@ class bullet{
   }
   
   void draw(localGame game){
-    
+    rect(bX, bY, bL, bW);
   }
 }
