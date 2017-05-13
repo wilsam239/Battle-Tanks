@@ -607,6 +607,7 @@ class bullet{
   int bL;
   int bW;
   int playerNumber = 0;
+  int bincrementer = 0;
   Boolean bPlayer1 = false;
   Boolean bPlayer2 = false;
   boolean alive = true;
@@ -691,11 +692,21 @@ class bullet{
     int nextTileY;
     int nextTileInt = 0;
     if (bullet.bRotation == 270 || bullet.bRotation == -270 || bullet.bRotation == 0){
-      dirVal = -30; 
+      dirVal = -10;
+      if(bullet.bincrementer == 2){
       nextTileInt = -1;
+      bullet.bincrementer = 0;
+      } else {
+        bullet.bincrementer = bullet.bincrementer + 1;
+      }
     } else if (bullet.bRotation == 90 ||bullet.bRotation == -90 || bullet.bRotation == 180 || bullet.bRotation == -180){
-      dirVal = +30; 
-      nextTileInt = 1;
+      dirVal = +10;
+      if (bullet.bincrementer == 2){
+        nextTileInt = 1;
+        bullet.bincrementer = 0;
+      } else {
+        bullet.bincrementer = bullet.bincrementer + 1;
+      }
     }
     if (bullet.bRotation == 90 || bullet.bRotation == -90 || bullet.bRotation == 270 || bullet.bRotation == -270){
       nextTileX = bullet.boX + nextTileInt;
