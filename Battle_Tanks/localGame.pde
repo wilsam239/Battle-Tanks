@@ -263,9 +263,11 @@ class localGame {
       screen = 5;
       
       //Stop the game music, and start the menu music again.
-      gamePlayer.pause();
-      menuPlayer.rewind();
-      menuPlayer.loop();
+      if (soundOn) {
+        gamePlayer.pause();
+        menuPlayer.rewind();
+        menuPlayer.loop();
+      }
     } else {
       player1.draw(this);
       player2.draw(this);
