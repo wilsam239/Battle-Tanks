@@ -117,6 +117,9 @@ class localGame {
   // Each players tank
   tank player1;
   tank player2;
+  // Each players bullet
+  bullet bPlayer1;
+  bullet bPlayer2;
   // Tracks which keys are currently being pressed.
   boolean[] keys;
   
@@ -261,6 +264,7 @@ class localGame {
     } else {
       player1.draw(this);
       player2.draw(this);
+      bPlayer1.draw(this);
       Header.draw(player1, player2);
     }
   }

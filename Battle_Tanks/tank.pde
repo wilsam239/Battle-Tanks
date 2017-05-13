@@ -393,13 +393,13 @@ class tank {
       if (game.keys[1]) updatePos("Left", game);
       if (game.keys[2]) updatePos("Backward", game);
       if (game.keys[3]) updatePos("Right", game);
-      if (game.keys[4]) new bullet(localGame.player1);
+      if (game.keys[4]) game.bPlayer1 = new bullet(this);
     } else if (numberOfTank == 2) {
       if (game.keys[5]) updatePos("Forward", game);
       if (game.keys[6]) updatePos("Left", game);
       if (game.keys[7]) updatePos("Backward", game);
       if (game.keys[8]) updatePos("Right", game);
-      if (game.keys[9]) firestate = true;
+      if (game.keys[9]) game.bPlayer2 = new bullet(this);
     }
   }
   
