@@ -639,17 +639,38 @@ class bullet{
       bPlayer1 = true;
       
     } else if (player.numberOfTank == 2 && bPlayer2 == false){
-      bX = player.x;
-      boX = player.oX;
-      bY = player.y;
-      boY = player.oY;
-      bRotation = player.rotation;
-      bPlayer2 = true;
+       bRotation = player.rotation;
+      if (bRotation == 180 || bRotation == -180){
+        bX = player.x + Tile.spriteHeight/2;
+        boX = player.oX;
+        bY = player.y - 1;
+        boY = player.oY - 1;
+      } else if (bRotation == 0){
+        bX = player.x + Tile.spriteHeight/2;
+        boX = player.oX;
+        bY = player.y + 1;
+        boY = player.oY + 1;
+      } else if (bRotation == 90 || bRotation == -90){
+        bX = player.x + Tile.spriteHeight + 1;
+        boX = player.oX + 1;
+        bY = player.y - Tile.spriteHeight/2;
+        boY = player.oY;
+      } else if (bRotation == 270 || bRotation == -270){
+        bX = player.x - 1;
+        boX = player.oX - 1;
+        bY = player.y - Tile.spriteHeight/2;
+        boY = player.oY;
+      } else {
+        throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
+      }
     }    
   }
   void updatePos(String dir, localGame game){
     int nextTileX;
     int nextTileY;
  
+  }
+  
+  void draw(localGame game){
   }
 }
