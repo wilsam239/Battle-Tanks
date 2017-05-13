@@ -118,8 +118,8 @@ class localGame {
   tank player1;
   tank player2;
   // Each players bullet
-  bullet bPlayer1;
-  bullet bPlayer2;
+  bullet bPlayer1 = null;
+  bullet bPlayer2 = null;
   // Tracks which keys are currently being pressed.
   boolean[] keys;
   
@@ -266,6 +266,8 @@ class localGame {
       player2.draw(this);
       Header.draw(player1, player2);
     }
+    if (bPlayer1 != null && bPlayer1.alive == true) bPlayer1.draw(this);
+    if (bPlayer2 != null && bPlayer2.alive == true) bPlayer2.draw(this);
   }
   
   void selectMap(int mapNumber) {
