@@ -195,6 +195,13 @@ class lobby {
     delay(1000);
     screen = 4;
     
+    //Once the network game starts, stop the menu music, and start the game music.
+    if (soundOn) {
+      menuPlayer.pause();
+      gamePlayer.rewind();
+      gamePlayer.loop();
+    }
+    
   }
   
   void optionFive() {
@@ -214,6 +221,13 @@ class lobby {
     Host.server.write("Ready," + nwgs.selectedMap+",\n");
     delay(1000);
     screen = 4;
+    
+    //Once the network game starts, stop the menu music, and start the game music.
+    if (soundOn) {
+      menuPlayer.pause();
+      gamePlayer.rewind();
+      gamePlayer.loop();
+    }
   }
   
   void update() {
