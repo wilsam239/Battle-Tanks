@@ -747,4 +747,8 @@ class bullet{
     rect(bX, bY, bL, bW);
     rect(boX, boY, bL,bW);
   }
+  
+  void draw(networkGame game){
+    rect(bX, bY, bL, bW);
+  }
 }
