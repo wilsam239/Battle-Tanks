@@ -41,6 +41,12 @@ class host {
   // The sprite used by the client
   PImage tankSprite;
   
+  // The Bullet X
+  int[] bulletX;
+  
+  // The Bullet Y
+  int[] bulletY;
+  
   // The default constructor, which takes in the PApplet sketch variable (current sketch)
   // The variable is used to create the server.
   host(PApplet sketch) {
@@ -54,7 +60,7 @@ class host {
     // Initialise the array for data in
     // The order of the data is as follows:
     // x position > y position > health > rotation > ID
-    components = new String[5];
+    components = new String[8];
     
     // Load the second tank image so that the other player looks like player 2
     tankSprite = loadImage("assets/tanks/tank2.png");
@@ -71,6 +77,9 @@ class host {
     float[] Thetas = new float[clientSet.size()];
     int[] clientHealth = new int[clientSet.size()];
     String[] clientID = new String[clientSet.size()];
+    int[] bulletX = new int[clientSet.size()];
+    int[] bulletY = new int[clientSet.size()];
+    int[] bulletExists = new int[clientSet.size()];
    
     // Provided the incoming message was not lost, draw the client
     if(incomingMessage!=null){
@@ -83,6 +92,9 @@ class host {
       nwgs.player2Health = int(components[2]);
       Thetas[0] = float(components[3]);
       clientID[0] = trim(components[4]);
+      bulletX[0] = int(components[5]);
+      bulletY[0] = int(components[6]);
+      bulletExists[0] = int(components[7])
       
       // Draw the client
       pushMatrix();
