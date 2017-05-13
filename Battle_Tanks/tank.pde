@@ -606,9 +606,8 @@ class tank {
 class bullet{
   int lRect = 3;
   int wRect = 4;
-  boolean bPlayer1, bPlayer2;
-  bPlayer1 = false;
-  bPlayer2 = false;
+  Boolean bPlayer1 = false;
+  Boolean bPlayer2 = false;
   int bX, boX, bY, boY, bRotation;
   // default Constructor
   bullet(tank player){
