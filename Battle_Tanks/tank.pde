@@ -604,8 +604,8 @@ class tank {
 }
 
 class bullet{
-  int lRect = 3;
-  int wRect = 4;
+  int bL;
+  int bW;
   Boolean bPlayer1 = false;
   Boolean bPlayer2 = false;
   int bX, boX, bY, boY, bRotation;
@@ -614,55 +614,71 @@ class bullet{
     if (player.numberOfTank == 1 && bPlayer1 == false){
       bRotation = player.rotation;
       if (bRotation == 180 || bRotation == -180){
-        bX = player.x + Tile.spriteHeight/2;
+        bX = player.x - 17;
         boX = player.oX;
         bY = player.y - 1;
         boY = player.oY - 1;
+        bW = 5;
+        bL = 3;
       } else if (bRotation == 0){
-        bX = player.x + Tile.spriteHeight/2;
+        bX = player.x -17;
         boX = player.oX;
-        bY = player.y + 1;
+        bY = player.y -36;
         boY = player.oY + 1;
+        bW = 5;
+        bL = 3;
       } else if (bRotation == 90 || bRotation == -90){
-        bX = player.x + Tile.spriteHeight + 1;
+        bX = player.x + 1;
         boX = player.oX + 1;
-        bY = player.y - Tile.spriteHeight/2;
+        bY = player.y - 17;
         boY = player.oY;
+        bW =3;
+        bL = 5;
       } else if (bRotation == 270 || bRotation == -270){
-        bX = player.x - 1;
+        bX = player.x - 36;
         boX = player.oX - 1;
-        bY = player.y - Tile.spriteHeight/2;
+        bY = player.y - 17;
         boY = player.oY;
+        bW =3;
+        bL = 5;
       } else {
         throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
       }
       bPlayer1 = true;
-      
     } else if (player.numberOfTank == 2 && bPlayer2 == false){
        bRotation = player.rotation;
       if (bRotation == 180 || bRotation == -180){
-        bX = player.x + Tile.spriteHeight/2;
+        bX = player.x - 17;
         boX = player.oX;
         bY = player.y - 1;
         boY = player.oY - 1;
+        bW = 5;
+        bL = 3;
       } else if (bRotation == 0){
-        bX = player.x + Tile.spriteHeight/2;
+        bX = player.x -17;
         boX = player.oX;
-        bY = player.y + 1;
+        bY = player.y -36;
         boY = player.oY + 1;
+        bW = 5;
+        bL = 3;
       } else if (bRotation == 90 || bRotation == -90){
-        bX = player.x + Tile.spriteHeight + 1;
+        bX = player.x + 1;
         boX = player.oX + 1;
-        bY = player.y - Tile.spriteHeight/2;
+        bY = player.y - 17;
         boY = player.oY;
+        bW =3;
+        bL = 5;
       } else if (bRotation == 270 || bRotation == -270){
-        bX = player.x - 1;
+        bX = player.x - 36;
         boX = player.oX - 1;
-        bY = player.y - Tile.spriteHeight/2;
+        bY = player.y - 17;
         boY = player.oY;
+        bW =3;
+        bL = 5;
       } else {
         throw new IllegalStateException("Somehow we have a direction that is not Left, Right, Up or Down");
       }
+      bPlayer2 = true;
     }    
   }
   void updatePos(String dir, localGame game){
@@ -672,5 +688,6 @@ class bullet{
   }
   
   void draw(localGame game){
+    
   }
 }

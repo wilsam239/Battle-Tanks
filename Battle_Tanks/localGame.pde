@@ -264,7 +264,6 @@ class localGame {
     } else {
       player1.draw(this);
       player2.draw(this);
-      bPlayer1.draw(this);
       Header.draw(player1, player2);
     }
   }
