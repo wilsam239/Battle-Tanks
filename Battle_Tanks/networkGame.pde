@@ -121,6 +121,9 @@ class networkGame {
   // Creates a tank for the player
   tank player;
   
+  // Creates a bullet for the player
+  bullet bulPlayer;
+  
   // Boolean array to store what keys are pressed
   boolean[] keys;
   // Boolean that determines whether the player is the host
@@ -152,6 +155,12 @@ class networkGame {
       player = new tank(2*Tile.spriteHeight, 2*Tile.spriteHeight, 180);
     } else {
       player = new tank(width - Tile.spriteHeight, height-Tile.spriteHeight, 0);
+    }
+    
+    if (isHost){
+      bulPlayer = null;
+    } else {
+      bulPlayer = null;
     }
     
     // Assigns each key in the array to false
