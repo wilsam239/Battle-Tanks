@@ -686,22 +686,39 @@ class bullet{
     int dirVal = 0;
     int nextTileX;
     int nextTileY;
+    int nextTileInt = 0;
     int startTileY = bullet.boY;
     int startTileX = bullet.boX;
-    rect (startTileY, startTileY, 3, 4);
     if (bullet.bRotation == 270 || bullet.bRotation == -270 || bullet.bRotation == 0){
-      dirVal = -3;
+      dirVal = -30; 
+      nextTileInt = -1;
     } else if (bullet.bRotation == 90 ||bullet.bRotation == -90 || bullet.bRotation == 180 || bullet.bRotation == -180){
-      dirVal = +3;
+      dirVal = +30; 
+      nextTileInt = 1;
     }
     if (bullet.bRotation == 90 || bullet.bRotation == -90 || bullet.bRotation == 270 || bullet.bRotation == -270){
-      bullet.bX = bullet.bX + dirVal;
+      nextTileX = bullet.boX + nextTileInt;
+      nextTileY = bullet.boY;
+      if (game.isPassable(nextTileX, nextTileY)){
+        bullet.boX = nextTileX;
+        bullet.bX = bullet.bX + dirVal;
+      } else {
+        bullet.alive = false;
+      }
     } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
-      bullet.bY = bullet.bY + dirVal;
+      nextTileY = bullet.boY + nextTileInt;
+      nextTileX = bullet.boX;
+      if (game.isPassable(nextTileX, nextTileY)){
+        bullet.boY = nextTileY;
+        bullet.bY = bullet.bY + dirVal;
+      } else {
+        bullet.alive = false;
+      }
     }
   }
   
   void draw(localGame game){
     rect(bX, bY, bL, bW);
+    rect(boX, boY, bL,bW);
   }
 }
