@@ -69,6 +69,8 @@ AudioPlayer firePlayer;
 AudioPlayer boomPlayer;
 AudioPlayer menuPlayer;
 AudioPlayer gamePlayer;
+AudioPlayer healthPlayer;
+AudioPlayer shieldPlayer;
 boolean soundOn;
 PImage volIcon;
 PImage muteIcon;
@@ -87,6 +89,8 @@ void setup() {
   minim = new Minim(this);
   firePlayer = minim.loadFile("assets/sounds/tankfire.mp3");
   boomPlayer = minim.loadFile("assets/sounds/explosion.mp3");
+  healthPlayer = minim.loadFile("assets/sounds/healthup.mp3");
+  shieldPlayer = minim.loadFile("assets/sounds/shieldup.mp3");
   menuPlayer = minim.loadFile("assets/sounds/mainMenu.mp3");    // Theme of "The Great Escape" by Elmer Bernstein.
   gamePlayer = minim.loadFile("assets/sounds/inGame.mp3");      // "Track 2" from Shellshock Live.
   soundOn = true;
