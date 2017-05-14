@@ -111,7 +111,7 @@ class localGame {
   // Stores the height and width of the map array
   int h = gameMap.length;
   int w = gameMap[0].length;
-  // Stores the randomly generated number that tells the map to laod a certain set of tiles
+  // Stores the randomly generated number that tells the map to load a certain set of tiles
   int set;
   header Header;
   // Each players tank

@@ -737,15 +737,15 @@ class bullet{
           game.player1.health = game.player1.health - 20; //decrease player 1 health by 2
         }
         bullet.alive = false; // if the bullet hits an object then set the bullet alive state to false.
-        if (soundOn) {
-          boomPlayer.rewind();
-          boomPlayer.play();
+        if (soundOn) { // check if sound is on
+          boomPlayer.rewind(); // rewind boom sound as to make sure it can play
+          boomPlayer.play(); // play the boom sound as bullet has exploded
         }
       } else {
-        bullet.alive = false;
-        if (soundOn) {
-          boomPlayer.rewind();
-          boomPlayer.play();
+        bullet.alive = false; // if bullet cannot pass and has hit a wall then set bullet alive to false
+        if (soundOn) { // check if sound is on
+          boomPlayer.rewind(); // rewind boom sound to make sure it plays
+          boomPlayer.play(); // play the boom sound as bullet has exploded
         }
     } // if the bullet is travelling along the y axis
     } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
@@ -761,16 +761,16 @@ class bullet{
         } else if (bullet.playerNumber == 2){ // if bullet is from player 2
           game.player1.health = game.player1.health - 20; // decrease player 1 health by 20
         }
-        bullet.alive = false;
-        if (soundOn) {
-          boomPlayer.rewind();
-          boomPlayer.play();
+        bullet.alive = false; // set bullet to false
+        if (soundOn) { // check if sound is on
+          boomPlayer.rewind(); // rewind the boom sound
+          boomPlayer.play(); // play boom sound as it has exploded
         }
       } else {
-        bullet.alive = false;
-        if (soundOn) {
-          boomPlayer.rewind();
-          boomPlayer.play();
+        bullet.alive = false; // if bullet cannot pass and has hit a wall then set bullet alive to false
+        if (soundOn) { // if sound is on
+          boomPlayer.rewind(); // rewind boom sound
+          boomPlayer.play(); // play boom sound
         }
     }
   }
