@@ -92,7 +92,7 @@ class host {
       nwgs.player2Health = int(components[2]);
       Thetas[0] = float(components[3]);
       clientID[0] = trim(components[4]);
-      bulletAlive[0] = boolean(components[5]);
+      //bulletAlive[0] = boolean(components[5]);
       
       // Draw the client
       pushMatrix();
