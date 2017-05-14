@@ -70,6 +70,10 @@ AudioPlayer boomPlayer;
 AudioPlayer menuPlayer;
 AudioPlayer gamePlayer;
 boolean soundOn;
+PImage volIcon;
+PImage muteIcon;
+// Controls how long the volume/mute icon is on screen for.
+int iconTimer;
 
 void setup() {
   // Create a window of size 600x600
@@ -87,6 +91,10 @@ void setup() {
   gamePlayer = minim.loadFile("assets/sounds/inGame.mp3");      // "Track 2" from Shellshock Live.
   soundOn = true;
   menuPlayer.loop();
+  
+  volIcon = loadImage("assets/other/volume.png");
+  muteIcon = loadImage("assets/other/mute.png");
+  iconTimer = 0;
 }
 
 void draw() {
@@ -103,9 +111,11 @@ void draw() {
         3: Network Lobby
         4: Network Game
         5: Game Over
+        
+        Also displays volume/mute icon on screen after muting/unmuting.
   */
     
-  // See the ehader comment above for each screens value
+  // See the header comment above for each screens value
   if (screen == 0) {
     menu.draw();
   } else if (screen == 1) {
@@ -119,6 +129,12 @@ void draw() {
     nwgs.draw();
   } else if (screen == 5) {
     GameOver.draw();
+  }
+  
+  if (iconTimer > 0) {
+    if (soundOn) image(volIcon, 825, 10);
+    else image(muteIcon, 825, 10);
+    iconTimer--;
   }
 }
 
@@ -161,16 +177,19 @@ void mute() {
         If sound is currently on, this function pauses the song currently playing and
         stops new sounds from starting. If sound is currently off, this function starts
         whatever background music should be playing, and allows sounds to play.
+        Also sets up iconTimer to display the icon on screen.
   */
   if (soundOn) {
     soundOn = false;
     if (screen == 1 || screen == 4) gamePlayer.pause();
     else menuPlayer.pause();
+    
   } else {
     soundOn = true;
     if (screen == 1 || screen == 4) gamePlayer.loop();
     else menuPlayer.loop();
   }
+  iconTimer = 60;
 }
 
 /* 
