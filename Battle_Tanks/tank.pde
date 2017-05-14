@@ -698,41 +698,45 @@ class bullet{
       bPlayer2 = true;
     }    
   }
+  //update function that takes in the bullet and the local game
   void updatePos(bullet bullet, localGame game){
     int dirVal = 0;
     int nextTileX;
     int nextTileY;
     int nextTileInt = 0;
+    // if the rotation = 270, -270 or 0 the bullet is travelling in a negative direction
     if (bullet.bRotation == 270 || bullet.bRotation == -270 || bullet.bRotation == 0){
-      dirVal = -10;
-      if(bullet.bincrementer == 2){
-      nextTileInt = -1;
-      bullet.bincrementer = 0;
+      dirVal = -10; // set dirVal to be -10 as the bullet is travelling up or left
+      if(bullet.bincrementer == 2){ // if the incrementer = 2 then next tile int is set
+      nextTileInt = -1; // next tile int is set to -1
+      bullet.bincrementer = 0; // reset bullet incrementer
       } else {
-        bullet.bincrementer = bullet.bincrementer + 1;
-      }
+        bullet.bincrementer = bullet.bincrementer + 1; // increase bullet incrementer
+      } // if the rotation = 90 or 180 then the bullet is travelling in a positive direction
     } else if (bullet.bRotation == 90 ||bullet.bRotation == -90 || bullet.bRotation == 180 || bullet.bRotation == -180){
-      dirVal = +10;
-      if (bullet.bincrementer == 2){
-        nextTileInt = 1;
-        bullet.bincrementer = 0;
+      dirVal = 10; // set dir val to be positive 10
+      if (bullet.bincrementer == 2){ // if increnter is 2 then next tile int is set
+        nextTileInt = 1; //next tile int = 0
+        bullet.bincrementer = 0; // incrementer is reset
       } else {
-        bullet.bincrementer = bullet.bincrementer + 1;
+        bullet.bincrementer = bullet.bincrementer + 1; // add to incrementer
       }
-    }
+    } // if bullet is travelling along the x axis then next tileX = bullet.boX + nextTileInt
     if (bullet.bRotation == 90 || bullet.bRotation == -90 || bullet.bRotation == 270 || bullet.bRotation == -270){
-      nextTileX = bullet.boX + nextTileInt;
-      nextTileY = bullet.boY;
+      nextTileX = bullet.boX + nextTileInt; // add nextTileInt to bullet boX
+      nextTileY = bullet.boY; // bullet boY is the same
+      //check to see what the next tile is
       if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber)){
-        bullet.boX = nextTileX;
-        bullet.bX = bullet.bX + dirVal;
+        bullet.boX = nextTileX; // if the tile was passable and no tank was present then the bullet boX is set to nextTileX
+        bullet.bX = bullet.bX + dirVal; //the bullets X position is icreased or decreased depending on dirVal
+        // if the game finds a tank object
       } else if (game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber) == false) {
-        if (bullet.playerNumber == 1){
-          game.player2.health = game.player2.health - 20;
-        } else if (bullet.playerNumber == 2){
-          game.player1.health = game.player1.health - 20;
+        if (bullet.playerNumber == 1){ // if bullet from player 1 hits
+          game.player2.health = game.player2.health - 20; //decrease player 2 health by 20
+        } else if (bullet.playerNumber == 2){ // if bullet from player 2 hits
+          game.player1.health = game.player1.health - 20; //decrease player 1 health by 2
         }
-        bullet.alive = false;
+        bullet.alive = false; // if the bullet hits an object then set the bullet alive state to false.
         if (soundOn) {
           boomPlayer.rewind();
           boomPlayer.play();
@@ -743,18 +747,19 @@ class bullet{
           boomPlayer.rewind();
           boomPlayer.play();
         }
-    }
+    } // if the bullet is travelling along the y axis
     } else if (bullet.bRotation == 0 || bullet.bRotation == 180 || bullet.bRotation == -180){
-      nextTileY = bullet.boY + nextTileInt;
-      nextTileX = bullet.boX;
+      nextTileY = bullet.boY + nextTileInt; // add nextileInt to bullets boY
+      nextTileX = bullet.boX; // bullet boX stays the same
       if (game.isPassable(nextTileX, nextTileY) && game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber)){
-        bullet.boY = nextTileY;
-        bullet.bY = bullet.bY + dirVal;
+        bullet.boY = nextTileY; // bullet boY = nextTileY
+        bullet.bY = bullet.bY + dirVal; // add dirVal to bullets y position
+        // check if bullet hits a tank
       } else if (game.tankNotPresent(nextTileX, nextTileY, bullet.playerNumber) == false) {
-        if (bullet.playerNumber == 1){
-          game.player2.health = game.player2.health - 20;
-        } else if (bullet.playerNumber == 2){
-          game.player1.health = game.player1.health - 20;
+        if (bullet.playerNumber == 1){ // if bullet is from player 1
+          game.player2.health = game.player2.health - 20; // decrease player 2 health by 20
+        } else if (bullet.playerNumber == 2){ // if bullet is from player 2
+          game.player1.health = game.player1.health - 20; // decrease player 1 health by 20
         }
         bullet.alive = false;
         if (soundOn) {
@@ -770,7 +775,7 @@ class bullet{
     }
   }
   }
-  
+  //draw function of rectangle for bullet
   void draw(localGame game){
     rect(bX, bY, bL, bW);
   }
