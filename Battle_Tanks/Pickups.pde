@@ -16,7 +16,7 @@ class hpup implements pickup {
   boolean exists = false, spawn = true;
 
   hpup() {
-    image = loadImage("/assets/pickups/hpup.png");
+    image = loadImage("assets/pickups/hpup.png");
   }
   // Method to dispaly the health pickup icon
   void display(int x, int y) {
@@ -37,8 +37,8 @@ class shup implements pickup {
   boolean exists = false, spawn = true, p1shieldon = false, p2shieldon = false;
 
   shup() {
-    image = loadImage("/assets/pickups/shieldgen.png");
-    shield = loadImage("/assets/pickups/shield.png");
+    image = loadImage("assets/pickups/shieldgen.png");
+    shield = loadImage("assets/pickups/shield.png");
   }
 
   // Methos to display the shield pickup icon
