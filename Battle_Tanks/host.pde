@@ -62,7 +62,7 @@ class host {
     // Initialise the array for data in
     // The order of the data is as follows:
     // x position > y position > health > rotation > ID > bulletAlive
-    components = new String[6];
+    components = new String[5];
     
     // Load the second tank image so that the other player looks like player 2
     tankSprite = loadImage("assets/tanks/tank2.png");
@@ -105,7 +105,7 @@ class host {
     
     // Prepare the string to send to the client
     // Sends the xPos, yPos, health, rotation and ID
-    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+","+nwgs.bulPlayer.alive+"\n";
+    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+"\n";
     Host.server.write(toSend); 
   }
 }
