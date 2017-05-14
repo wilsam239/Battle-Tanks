@@ -41,6 +41,14 @@ class host {
   // The sprite used by the client
   PImage tankSprite;
   
+  //Bullet alive
+  boolean[] bulletAlive;
+  // Bullet X
+  float[] bulletX;
+  // Bullet Y
+  float[] bulletY;
+  
+  
   // The default constructor, which takes in the PApplet sketch variable (current sketch)
   // The variable is used to create the server.
   host(PApplet sketch) {
@@ -53,8 +61,8 @@ class host {
     
     // Initialise the array for data in
     // The order of the data is as follows:
-    // x position > y position > health > rotation > ID
-    components = new String[5];
+    // x position > y position > health > rotation > ID > bulletAlive
+    components = new String[6];
     
     // Load the second tank image so that the other player looks like player 2
     tankSprite = loadImage("assets/tanks/tank2.png");
@@ -71,6 +79,7 @@ class host {
     float[] Thetas = new float[clientSet.size()];
     int[] clientHealth = new int[clientSet.size()];
     String[] clientID = new String[clientSet.size()];
+    boolean[] bulletAlive = new boolean[clientSet.size()];
    
     // Provided the incoming message was not lost, draw the client
     if(incomingMessage!=null){
@@ -83,6 +92,7 @@ class host {
       nwgs.player2Health = int(components[2]);
       Thetas[0] = float(components[3]);
       clientID[0] = trim(components[4]);
+      bulletAlive[0] = boolean(components[5]);
       
       // Draw the client
       pushMatrix();
@@ -95,7 +105,7 @@ class host {
     
     // Prepare the string to send to the client
     // Sends the xPos, yPos, health, rotation and ID
-    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+"\n";
+    String toSend = str(nwgs.player.x)+","+str(nwgs.player.y)+","+str(nwgs.player.health)+","+str(nwgs.player.rotation)+","+"0"+","+nwgs.bulPlayer.alive+"\n";
     Host.server.write(toSend); 
   }
 }
